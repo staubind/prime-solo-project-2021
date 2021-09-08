@@ -5,6 +5,10 @@ function* search(action) {
     try {
         console.log('action.payload is: ', action.payload);
         const results = yield axios.get('/api/search', {params:  {searchTerm: action.payload}})
+        yield console.log(results);
+        yield put({
+            type: 'SET_SEARCH_REDUCER', 
+            payload: results.data})
     } catch (error) {
         console.log('Failed to search: ', error);
         alert('Failed to search. See console for details.');
