@@ -119,3 +119,61 @@ This code is also heavily commented. We recommend reading through the comments, 
 ## Update Documentation
 
 Customize this ReadMe and the code comments in this project to read less like a starter repo and more like a project. Here is an example: https://gist.github.com/PurpleBooth/109311bb0361f32d87a2
+
+# Checklist
+
+[x] Read available boiler-plate
+[x] Set up the Database file w/ ERD tables
+[] Deploy to Heroku
+  [] check progress through phone to see if it looks good.
+[] General Layout
+  [] navbar
+    [] navbar should move with screen - should always be at top.
+    [] search bar
+      [] click on microscope and it opens the search bar
+    [] hamburger drop down
+      [] links to:
+        [] profile
+        [] cart
+        [] grocery list
+        [] settings
+        [] page heading/other page-specific info
+  [] recipe cards
+    [] photo
+    [] description if available otherwise directions
+    [] add/remove to cart button
+    [] (un)favorite button
+[] User Profile
+  [] (stretch) place to upload a photo
+  [] favorites
+  [] (stretch) authored recipes
+[] Search Page
+  [] display list view of recipe cards for search term
+  [] x to clear the search field like on reddit
+[] Recipe Detail View
+  [] back button (to search w/ the latest search results)
+  [] favorite button (same as from card)
+  [] picture (larger from the card)
+  [] ingredients list
+  [] instruction list
+  [] (depending on api costs) nutritional information
+  [] add to cart button
+    [] launches modal
+      [] modal asks how many servings to input
+      [] an amount field to enter
+      [] a cancel button that closes the modal
+      [] add/remove to cart button
+[] Cart view
+  [] Recipe list
+    [] recipe list view w/ cards
+  [] ingredient list
+    [] list composed of ingredients and their amounts
+    [] each item appears only once - all recipes accounted for
+  [] remove button on cards launches a modal here
+    [] cancel button
+    [] confirm button
+  [] clear cart button
+    [] launches modal
+      [] cancel button
+      [] confirm button
+
