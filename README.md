@@ -124,8 +124,8 @@ Customize this ReadMe and the code comments in this project to read less like a 
 
 [x] Read available boiler-plate
 [x] Set up the Database file w/ ERD tables
-[] Deploy to Heroku
-  [] check progress through phone to see if it looks good.
+[x] Deploy to Heroku
+  [x] check progress through phone to see if it looks good.
 [] General Layout
   [] navbar
     [] navbar should move with screen - should always be at top.
