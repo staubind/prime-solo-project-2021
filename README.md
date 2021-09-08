@@ -122,12 +122,13 @@ Customize this ReadMe and the code comments in this project to read less like a 
 
 # Checklist
 
-[] Read available boiler-plate
+[x] Read available boiler-plate
 [] Set up the Database file w/ ERD tables
 [] Deploy to Heroku
   [] check progress through phone to see if it looks good.
 [] General Layout
   [] navbar
+    [] navbar should move with screen - should always be at top.
     [] search bar
       [] click on microscope and it opens the search bar
     [] hamburger drop down
