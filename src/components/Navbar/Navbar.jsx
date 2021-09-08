@@ -13,6 +13,7 @@ function NavigationBar() {
             type: 'FETCH_SEARCH',
             payload: searchTerm
         })
+        // redirect to the search page
     }
 
     return (
