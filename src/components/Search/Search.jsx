@@ -6,11 +6,15 @@ import RecipeCard from '../RecipeCard/RecipeCard';
 function Search() {
     const searchResults = useSelector(store => store.search);     
 
+    // useEffect({
+    //     // display what's currently in store from last search
+    // },[])
+
     // just returns the recipe cards
     return (
         <>
             {searchResults.map(recipe => {
-                return <RecipeCard recipe={recipe}/>
+                return <RecipeCard key={recipe.id} recipe={recipe}/>
             })}
         </>
     );
