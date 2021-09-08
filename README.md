@@ -128,7 +128,7 @@ Customize this ReadMe and the code comments in this project to read less like a 
   [x] check progress through phone to see if it looks good.
 [] General Layout
   [] navbar
-    [] navbar should move with screen - should always be at top.
+    [x] navbar should move with screen - should always be at top.
     [] search bar
       [] click on microscope and it opens the search bar
     [] hamburger drop down
