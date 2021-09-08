@@ -1,8 +1,19 @@
 import {Navbar, Nav, NavDropdown, Form, FormControl, Button, Container} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import {useState} from 'react';
 
 function NavigationBar() {
+    const dispatch = useDispatch();
+
+    const [searchTerm, setSearchTerm] = useState('');
+
+    const search = (action) => {
+        dispatch({
+            type: 'FETCH_SEARCH',
+            payload: searchTerm
+        })
+    }
 
     return (
         <>
@@ -19,14 +30,16 @@ function NavigationBar() {
               <Nav.Link href="#action2">Search</Nav.Link>
               <Nav.Link href="#">Cart</Nav.Link>
             </Nav>
-            <Form className="d-flex"> 
+            <Form className="d-flex" onSubmit={search}> 
               <FormControl
                 type="search"
                 placeholder="Search"
                 className="mr-2"
                 aria-label="Search"
+                value={searchTerm}
+                onChange={(event) => {setSearchTerm(event.target.value)}}
               />
-              <Button variant="outline-success">Search</Button>
+              <Button type="submit" variant="outline-success">Search</Button>
             </Form>
           </Navbar.Collapse>
         </Navbar>
