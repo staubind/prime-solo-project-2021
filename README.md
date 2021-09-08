@@ -124,6 +124,8 @@ Customize this ReadMe and the code comments in this project to read less like a 
 
 [] Read available boiler-plate
 [] Set up the Database file w/ ERD tables
+[] Deploy to Heroku
+  [] check progress through phone to see if it looks good.
 [] General Layout
   [] navbar
     [] search bar
