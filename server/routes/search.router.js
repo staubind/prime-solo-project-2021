@@ -7,17 +7,16 @@ const axios = require('axios');
  * GET route template
  */
 router.get('/', (req, res) => {
-  // GET route code here
-  console.log('we are getting here with the data', req.query.searchTerm);
+  // compose params for api call.
   const params = {
     query: req.query.searchTerm,
     maxFat: 25,
     number: 1,}
-  const apiKey= '49f8bd1be8064b059484c899a3638e06'
   axios({
     method: 'GET',
     url: 'https://api.spoonacular.com/recipes/complexSearch', 
     params: {
+        // grabs the api key from environment variables to keep our key secure
         apiKey: process.env.SPOONACULAR_API_KEY,
         query: '',
         number: 2, // adjust later
