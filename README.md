@@ -123,7 +123,7 @@ Customize this ReadMe and the code comments in this project to read less like a 
 # Checklist
 
 [x] Read available boiler-plate
-[] Set up the Database file w/ ERD tables
+[x] Set up the Database file w/ ERD tables
 [] Deploy to Heroku
   [] check progress through phone to see if it looks good.
 [] General Layout
