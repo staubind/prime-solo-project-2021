@@ -12,7 +12,8 @@ function NavigationBar() {
 
     const [searchTerm, setSearchTerm] = useState('');
 
-    const search = (action) => {
+    const search = (event) => {
+        event.preventDefault()
         dispatch({
             type: 'FETCH_SEARCH',
             payload: searchTerm
@@ -24,7 +25,9 @@ function NavigationBar() {
     return (
         <>
         <Navbar bg="light" expand="lg" fixed="top">
-          <Navbar.Brand href="#">Navbar scroll</Navbar.Brand>
+          <LinkContainer to="/home">
+            <Navbar.Brand>GroceryGuru</Navbar.Brand>
+          </LinkContainer>
           <Navbar.Toggle aria-controls="navbarScroll" />
           <Navbar.Collapse id="navbarScroll">
             <Nav
@@ -32,20 +35,22 @@ function NavigationBar() {
               style={{ maxHeight: '100px' }}
               navbarScroll
             >
+              {/* if nobody is logged in, we should redirect to login/register view */}
               <LinkContainer to="/user">
                   <Nav.Link>Profile</Nav.Link>
               </LinkContainer>
-
+              {/* if nobody is logged in, we should redirect to login/register view */}
               <LinkContainer to="/search">
                 <Nav.Link>Search</Nav.Link>
               </LinkContainer>
-
+              {/* if nobody is logged in, we should redirect to login/register view */}
               <LinkContainer to="/cart">
                   <Nav.Link>Cart</Nav.Link>
               </LinkContainer>
 
+              {/* need links for login/logout */}
               <LinkContainer to="/search">
-                  <Nav.Link>Some Link</Nav.Link>
+                  <Nav.Link>Login/Logout</Nav.Link>
               </LinkContainer>
             </Nav>
             <Form className="d-flex" onSubmit={search}> 
