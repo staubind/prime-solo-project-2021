@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import {
-  HashRouter as Router,
+  BrowserRouter as Router,
   Redirect,
   Route,
   Switch,
@@ -23,6 +23,7 @@ import RegisterPage from '../RegisterPage/RegisterPage';
 import NavigationBar from '../Navbar/Navbar';
 
 import './App.css';
+import Search from '../Search/Search';
 
 function App() {
   const dispatch = useDispatch();
@@ -48,6 +49,7 @@ function App() {
             path="/about"
           >
             <AboutPage />
+            <Search />
           </Route>
 
           {/* For protected routes, the view could show one of several things on the same route.
@@ -69,6 +71,14 @@ function App() {
           >
             <InfoPage />
           </ProtectedRoute>
+
+          <ProtectedRoute
+            exact
+            path="/search"
+          >
+            <Search />
+          </ProtectedRoute>
+
 
           <Route
             exact
