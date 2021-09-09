@@ -32,16 +32,21 @@ function NavigationBar() {
               style={{ maxHeight: '100px' }}
               navbarScroll
             >
-              <Nav.Link href="/home">Profile</Nav.Link>
+              <LinkContainer to="/user">
+                  <Nav.Link>Profile</Nav.Link>
+              </LinkContainer>
+
               <LinkContainer to="/search">
                 <Nav.Link>Search</Nav.Link>
               </LinkContainer>
-              <Nav.Link>Cart</Nav.Link>
-              {user.id ? 
-              <Nav.Link href="/logout">Logout</Nav.Link> : 
-              <Nav.Link href="/login">Login</Nav.Link>}
-              <Nav.Link href="/about">About</Nav.Link>
-              
+
+              <LinkContainer to="/cart">
+                  <Nav.Link>Cart</Nav.Link>
+              </LinkContainer>
+
+              <LinkContainer to="/search">
+                  <Nav.Link>Some Link</Nav.Link>
+              </LinkContainer>
             </Nav>
             <Form className="d-flex" onSubmit={search}> 
               <FormControl
