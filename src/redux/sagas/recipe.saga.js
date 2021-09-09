@@ -6,9 +6,9 @@ function* addToCart(action) {
     console.log('user is: ', action.payload.userId);
     console.log('payload is: ', action.payload.recipeId);
     try {
-        const response = yield axios({
+        yield axios({
             method: 'POST',
-            url: `/api/cart/add`,
+            url: `/api/cart/`,
             data: {
                 user: action.payload.userId,
                 recipeId: action.payload.recipeId
@@ -20,9 +20,20 @@ function* addToCart(action) {
     }
 }
 
-function* removeFromCart() {
+function* removeFromCart(action) {
+    console.log('actions value is: ', action);
     try {
-
+        yield axios({
+            method: 'DELETE',
+            url: `/api/cart/`,
+            data: {
+                user: action.payload.userId,
+                // for RESTful api should I be sending the user
+                //  in the body to keep all relevant info?
+                // even though we have it in the user attribute
+                recipeId: action.payload.recipeId
+            }
+        })
     } catch (error) {
         console.log('Failed to remove from cart: ', error);
         alert('Failed to remove from cart. See console for details.');

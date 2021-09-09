@@ -9,7 +9,7 @@ function RecipeCard({recipe}) {
 
     const changeCart = (val) => {
         // defaults to adding to the cart
-        const type = 'ADD_TO_CART'
+        let type = 'ADD_TO_CART'
         if (val === 'remove') {
             type = 'REMOVE_FROM_CART'
         }
@@ -30,6 +30,7 @@ function RecipeCard({recipe}) {
                   {recipe.title}
                 </Card.Text>
                 <Button variant="primary" onClick={() => {changeCart()}}>Add to Cart</Button>
+                <Button variant="primary" onClick={() => {changeCart('remove')}}>Remove from Cart</Button>
               </Card.Body>
             </Card>
         </>

@@ -3,14 +3,12 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
 const pool = require('../modules/pool');
 const router = express.Router();
 
-/**
-* GET route template
-*/
-router.post('/add', rejectUnauthenticated, (req, res) => {
+
+router.post('/', rejectUnauthenticated, (req, res) => {
     // check if the row exists in the database
     const updateSqlQuery = `UPDATE "user_recipes"
                             SET "is_current" = TRUE
-                            WHERE "user_id" = $1 AND "recipe_id" = $2;  `
+                            WHERE "user_id" = $1 AND "recipe_id" = $2;`
     const sqlParams = [req.user.id, req.body.recipeId]
     
     pool.query(updateSqlQuery, sqlParams)
@@ -37,19 +35,21 @@ router.post('/add', rejectUnauthenticated, (req, res) => {
         console.log('Failed to check if element exists in DB: ', error)
         res.sendStatus(500);
     })
-// req.body is:  { user: 1, recipeId: 637285 }
-  // otherwise insert it
-
-    // if the row exists, change it to a current one
-    // if the row does not exist, add it w/ current set to true
-  console.log('req.body is: ', req.body)
 });
 
-/**
-* POST route template
-*/
-router.post('/', (req, res) => {
-  // POST route code here
+
+router.delete('/', rejectUnauthenticated, (req, res) => {
+    // we will do a soft delete using the "is_current" field
+    const sqlQuery = `UPDATE "user_recipes"
+                      SET "is_current" = FALSE
+                      WHERE "user_id" = $1 AND "recipe_id" = $2;`;
+    const sqlParams = [req.user.id, req.body.recipeId];
+    pool.query(sqlQuery, sqlParams).then(dbResponse => {
+        res.sendStatus(204);
+    }).catch(err => {
+        console.log('Failed to remove item from cart: ', err)
+        res.sendStatus(500);
+    });
 });
 
 module.exports = router;
