@@ -6,6 +6,9 @@ function* search(action) {
         const results = yield axios.get('/api/search', {params:  {searchTerm: action.payload}})
         yield console.log('received from database is: ', results);
         yield put({
+            type: 'SET_SEARCH_TERM',
+            payload: action.payload})
+        yield put({
             type: 'SET_SEARCH_REDUCER', 
             payload: results})
     } catch (error) {
@@ -15,7 +18,7 @@ function* search(action) {
 }
 
 function* searchSaga(action) {
-    yield takeLatest('FETCH_SEARCH', search)
+    yield takeLatest('SEARCH', search)
 }
 
 export default searchSaga;

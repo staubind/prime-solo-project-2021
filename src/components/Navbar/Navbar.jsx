@@ -15,16 +15,18 @@ function NavigationBar() {
     const search = (event) => {
         event.preventDefault()
         dispatch({
-            type: 'FETCH_SEARCH',
+            type: 'SEARCH',
             payload: searchTerm
         })
+        // send the search term to the display page
+        setSearchTerm('');
         // redirect to the search page
         history.push('/search');
     }
 
     return (
         <>
-        <Navbar bg="light" expand="lg" fixed="top">
+        <Navbar bg="light" expand="lg" sticky="top">
           <LinkContainer to="/home">
             <Navbar.Brand>GroceryGuru</Navbar.Brand>
           </LinkContainer>

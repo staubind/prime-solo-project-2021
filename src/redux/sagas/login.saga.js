@@ -53,6 +53,10 @@ function* logoutUser(action) {
     // remove the client-side user object to let
     // the client-side code know the user is logged out
     yield put({ type: 'UNSET_USER' });
+    // clear the search results so they reset and we don't have to store
+    // the search data in the db per the spoonacular api's terms
+    yield put({type: 'CLEAR_SEARCH'})
+    yield put({type: 'CLEAR_SEARCH_TERM'})
   } catch (error) {
     console.log('Error with user logout:', error);
   }

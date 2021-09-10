@@ -5,7 +5,7 @@ import RecipeCard from '../RecipeCard/RecipeCard';
 
 function Search() {
     const searchResults = useSelector(store => store.search);     
-
+    const searchTerm = useSelector(store => store.searchTermReducer);
     // useEffect({
     //     // display what's currently in store from last search
     // },[])
@@ -13,6 +13,7 @@ function Search() {
     // just returns the recipe cards
     return (
         <>
+            <h1>Showing results for: {searchTerm}</h1>
             {searchResults.map(recipe => {
                 return <RecipeCard key={recipe.id} recipe={recipe}/>
             })}
