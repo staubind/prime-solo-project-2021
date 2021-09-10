@@ -11,7 +11,8 @@ function* addToCart(action) {
             url: `/api/cart/`,
             data: {
                 user: action.payload.userId,
-                recipeId: action.payload.recipeId
+                recipeId: action.payload.recipeId,
+                servings: action.payload.servings
             }
         })
     } catch (error) {

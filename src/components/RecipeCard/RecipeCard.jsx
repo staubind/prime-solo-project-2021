@@ -13,6 +13,7 @@ function RecipeCard({recipe}) {
 
     const changeCart = (val) => {
         // defaults to adding to the cart
+        console.log('servings is: ', servings);
         let type = 'ADD_TO_CART'
         if (val === 'remove') {
             type = 'REMOVE_FROM_CART'
@@ -33,15 +34,14 @@ function RecipeCard({recipe}) {
                 <Card.Text>
                   {recipe.title}
                 </Card.Text>
-                <Button variant="primary" onClick={() => {changeCart()}}>Add to Cart</Button>
+                <Button variant="primary" onClick={() => {setModalShow(true)}}>Add to Cart</Button>
                 <Button variant="primary" onClick={() => {changeCart('remove')}}>Remove from Cart</Button>
-                <Button variant="primary" onClick={() => {setModalShow(true)}}>Launch Modal</Button>
                 <ServingsModal 
                   show={modalShow} 
                   onHide={() => setModalShow(false)} 
                   confirm={() => changeCart()}
                   heading={recipe.title}
-                  setServings={setServings}
+                  setservings={setServings}
                 />
               </Card.Body>
             </Card>

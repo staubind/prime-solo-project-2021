@@ -7,20 +7,24 @@ const router = express.Router();
 router.post('/', rejectUnauthenticated, (req, res) => {
     // check if the row exists in the database
     const updateSqlQuery = `UPDATE "user_recipes"
-                            SET "is_current" = TRUE
-                            WHERE "user_id" = $1 AND "recipe_id" = $2;`
-    const sqlParams = [req.user.id, req.body.recipeId]
+                            SET "is_current" = TRUE, "servings" = $1
+                            WHERE "user_id" = $2 AND "recipe_id" = $3;`
+    const updateSqlParams = [req.body.servings, req.user.id, req.body.recipeId]
     
-    pool.query(updateSqlQuery, sqlParams)
+    
+
+
+    pool.query(updateSqlQuery, updateSqlParams)
     .then(existResponse => {
         // check if anything was updated, if not insert
         if (existResponse.rowCount === 0) {
             // insert a new row
             const insertSqlQuery = `INSERT INTO "user_recipes"
-                                        ("user_id", "recipe_id", "is_favorite", "is_current")
+                                        ("user_id", "recipe_id", "is_favorite", "is_current", "servings")
                                     VALUES
-                                        ($1, $2, FALSE, TRUE)`
-            pool.query(insertSqlQuery, sqlParams).then(dbResponse => {
+                                        ($1, $2, FALSE, TRUE, $3)`;
+            const insertSqlParams = [req.user.id, req.body.recipeId, req.body.servings]
+            pool.query(insertSqlQuery, insertSqlParams).then(dbResponse => {
                 // send creation response
                 res.sendStatus(201);
             }).catch(error => {
