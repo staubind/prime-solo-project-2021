@@ -14,7 +14,8 @@ CREATE TABLE "user_recipes" (
     "user_id" INT REFERENCES "user" ON DELETE CASCADE,
     "recipe_id" INT,
     "is_favorite" BOOLEAN,
-    "is_current" BOOLEAN
+    "is_current" BOOLEAN,
+    "servings" INT
 );
 
 CREATE TABLE "is_completed" (
