@@ -34,8 +34,12 @@ function RecipeCard({recipe}) {
                 <Card.Text>
                   {recipe.title}
                 </Card.Text>
+                  {/* time for conditional button rendering. Hell yeah. */}
+                {recipe.isCurrent ?
+                  <Button variant="primary" onClick={() => {changeCart('remove')}}>Remove from Cart</Button>
+                :
                 <Button variant="primary" onClick={() => {setModalShow(true)}}>Add to Cart</Button>
-                <Button variant="primary" onClick={() => {changeCart('remove')}}>Remove from Cart</Button>
+              }
                 <ServingsModal 
                   show={modalShow} 
                   onHide={() => setModalShow(false)} 
