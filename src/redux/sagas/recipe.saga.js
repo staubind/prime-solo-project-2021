@@ -1,10 +1,10 @@
-import { takeLatest } from "redux-saga/effects";
+import { put, takeLatest } from "redux-saga/effects";
 import axios from 'axios';
 
 function* addToCart(action) {
-    console.log('have we even made it to the saga?')
-    console.log('user is: ', action.payload.userId);
-    console.log('payload is: ', action.payload.recipeId);
+    // console.log('have we even made it to the saga?')
+    // console.log('user is: ', action.payload.userId);
+    // console.log('payload is: ', action.payload.recipeId);
     try {
         yield axios({
             method: 'POST',
@@ -13,6 +13,20 @@ function* addToCart(action) {
                 user: action.payload.userId,
                 recipeId: action.payload.recipeId,
                 servings: action.payload.servings
+            }
+        })
+        // do a get w/ the stuff that's in the search - we need to know their     
+        const isCurrent = yield axios({
+            method: 'GET',
+            url: `/api/cart/${action.payload.recipeId}/isCurrent`,
+        })
+        // send update to reducer and update it
+        // yield console.log('isCurrent contents: ', isCurrent)
+        yield put({
+            type: 'UPDATE_SEARCH_REDUCER',
+            payload: {
+                recipeId: isCurrent.data.recipeId,
+                isCurrent: isCurrent.data.isCurrent
             }
         })
     } catch (error) {
@@ -33,6 +47,20 @@ function* removeFromCart(action) {
                 //  in the body to keep all relevant info?
                 // even though we have it in the user attribute
                 recipeId: action.payload.recipeId
+            }
+        })
+        const isCurrent = yield axios({
+            method: 'GET',
+            url: `/api/cart/${action.payload.recipeId}/isCurrent`,
+        })
+        // console.log('from remove from cart: isCurrent get request gave back the following: ', isCurrent)
+        // send update to reducer and update it
+        // yield console.log('isCurrent contents: ', isCurrent)
+        yield put({
+            type: 'UPDATE_SEARCH_REDUCER',
+            payload: {
+                recipeId: isCurrent.data.recipeId,
+                isCurrent: isCurrent.data.isCurrent
             }
         })
     } catch (error) {

@@ -10,10 +10,6 @@ router.post('/', rejectUnauthenticated, (req, res) => {
                             SET "is_current" = TRUE, "servings" = $1
                             WHERE "user_id" = $2 AND "recipe_id" = $3;`
     const updateSqlParams = [req.body.servings, req.user.id, req.body.recipeId]
-    
-    
-
-
     pool.query(updateSqlQuery, updateSqlParams)
     .then(existResponse => {
         // check if anything was updated, if not insert
@@ -41,7 +37,6 @@ router.post('/', rejectUnauthenticated, (req, res) => {
     })
 });
 
-
 router.delete('/', rejectUnauthenticated, (req, res) => {
     // we will do a soft delete using the "is_current" field
     const sqlQuery = `UPDATE "user_recipes"
@@ -55,5 +50,22 @@ router.delete('/', rejectUnauthenticated, (req, res) => {
         res.sendStatus(500);
     });
 });
+
+router.get('/:recipeId/isCurrent', rejectUnauthenticated, (req, res) => {
+    const sqlQuery = `SELECT "is_current" FROM "user_recipes"
+                      WHERE "user_id" = $1 and "recipe_id" = $2`
+    const sqlParams = [req.user.id, req.params.recipeId];
+    pool.query(sqlQuery, sqlParams).then(dbRes => {
+
+        // console.log('values we would use to update are: ', dbRes.rows[0].is_current);
+        res.send({
+            recipeId: req.params.recipeId,
+            isCurrent: dbRes.rows[0].is_current
+        })
+    }).catch(error => {
+        console.log('Failed to get is_current for updating of state');
+        res.sendStatus(500);
+    })
+})
 
 module.exports = router;

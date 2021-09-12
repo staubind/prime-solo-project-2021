@@ -6,7 +6,7 @@ import axios from 'axios';
 function* search(action) {
     try {
         const results = yield axios.get('/api/search', {params:  {searchTerm: action.payload}})
-        yield console.log('received from api call is: ', results);
+        // yield console.log('received from api call is: ', results);
 
         // in order to do conditional rendering, we need to know if items are in the cart already or not.
         // we will modify the results to include a tag saying which of the elements are included or not
