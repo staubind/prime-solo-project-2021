@@ -10,14 +10,15 @@ function RecipeCard({recipe}) {
     const user = useSelector(store => store.user)
     const [modalShow, setModalShow] = useState(false)
     const [servings, setServings] = useState(1)
+    // const [isCurrentlyAdd, setIsCurrentlyAdd] = useState(recipe.isCurrent);
 
     const changeCart = (val) => {
         // defaults to adding to the cart
-        console.log('servings is: ', servings);
         let type = 'ADD_TO_CART'
         if (val === 'remove') {
             type = 'REMOVE_FROM_CART'
         }
+        // setIsCurrentlyAdd(!isCurrentlyAdd);
         // send the id to our saga
         dispatch({
             type: type,
@@ -34,8 +35,12 @@ function RecipeCard({recipe}) {
                 <Card.Text>
                   {recipe.title}
                 </Card.Text>
+                  {/* time for conditional button rendering. Hell yeah. */}
+                {recipe.isCurrent ?
+                  <Button variant="primary" onClick={() => {changeCart('remove')}}>Remove from Cart</Button>
+                :
                 <Button variant="primary" onClick={() => {setModalShow(true)}}>Add to Cart</Button>
-                <Button variant="primary" onClick={() => {changeCart('remove')}}>Remove from Cart</Button>
+                }
                 <ServingsModal 
                   show={modalShow} 
                   onHide={() => setModalShow(false)} 

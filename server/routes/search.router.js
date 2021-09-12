@@ -4,7 +4,7 @@ const router = express.Router();
 const axios = require('axios');
 
 
-function addIsCurrentProperty(userId, recipeList) {
+async function addIsCurrentProperty(userId, recipeList) {
   // this function checks if the search results exist in the db for that user
   // and if they are already in the user's cart
   // we need this to do some conditional rendering on the front end
@@ -15,23 +15,27 @@ function addIsCurrentProperty(userId, recipeList) {
                     WHERE "user_id" = $1 AND "recipe_id" = $2`
     const params = [userId, recipe.id]
     // see if it exists in the db
-    pool.query(query, params).then(dbResponse => {
+    await pool.query(query, params).then(dbResponse => {
       if (dbResponse.rowCount !== 0) {
-        recipe['isCurrent'] = dbResponse.rows[0].is_current
+        recipe['isCurrent'] = dbResponse.rows[0].is_current    
       } 
       // console.log('after updating: ', recipe['isCurrent'])
       // if exists give it value from db
       recipeList.results[i] = recipe
+      // console.log('after assigning it back into recipeList: ', recipeList.results[i].isCurrent)
     }).catch(error => {
       console.log('Failed to decide if recipe is current or not: ', error);
       return 'addIsCurrent failed';
     })
   }
+  // await console.log('Inside addIsCurrentProperty-----------------')
+  // await console.log('the first item in addIsCurrentProperty: ', recipeList.results[0].isCurrent)
+  // await console.log('the second item in addIsCurrentProperty: ', recipeList.results[1].isCurrent)
   return recipeList
 }
 
 router.get('/', (req, res) => {
-    console.log('the request term is: ', req.query.searchTerm);
+    // console.log('the request term is: ', req.query.searchTerm);
   // compose params for api call.
   axios({
     method: 'GET',
@@ -45,12 +49,13 @@ router.get('/', (req, res) => {
         addRecipeInformation: true,
     }
   })
-  .then(apiResponse => {
+  .then(async apiResponse => {
     // console.log('api request succeeded: ', apiResponse.data)
-    const preparedResults = addIsCurrentProperty(req.user.id, apiResponse.data)
-    console.log('the prepared results are; ', preparedResults.results[0]);
+    const preparedResults = await addIsCurrentProperty(req.user.id, apiResponse.data)
+    // console.log('the prepared results for item 0 is: ', preparedResults.results[0].isCurrent);
+    // console.log('the prepared results for item 1 is: ', preparedResults.results[1].isCurrent);
     if (preparedResults === 'addIsCurrent failed') {
-      console.log('addIsCurrnet Failed.')
+      console.log('addIsCurrent Failed.')
       res.sendStatus(500);
     }
     res.send(preparedResults)
