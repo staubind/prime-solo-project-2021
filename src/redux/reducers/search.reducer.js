@@ -11,7 +11,7 @@ const searchReducer = (state = [], action) => {
         return action.payload.data.results;
       case 'UPDATE_SEARCH_REDUCER':
         console.log('recipe id we are looking for is: ', action.payload.recipeId); // typeof reveals payload is string
-        let newState = state
+        let newState = [...state]
         // find the index of the search item
         const index = newState.findIndex(recipe => recipe.id === Number(action.payload.recipeId))
         // update the isCurrent attribute
