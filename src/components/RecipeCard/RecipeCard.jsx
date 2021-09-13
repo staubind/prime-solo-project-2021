@@ -2,15 +2,15 @@ import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import ServingsModal from '../Modal/Modal';
+import ServingsModal from '../ServingsModal/ServingsModal';
 import { useState } from 'react';
 
 function RecipeCard({recipe}) {
     const dispatch = useDispatch();
     const user = useSelector(store => store.user)
-    const [modalShow, setModalShow] = useState(false)
+    const [cartModalShow, setCartModalShow] = useState(false)
     const [servings, setServings] = useState(1)
-    // const [isCurrentlyAdd, setIsCurrentlyAdd] = useState(recipe.isCurrent);
+    const [favoriteModalShow, setFavoriteModalShow] = useState(false);
 
     const changeCart = (val) => {
         // defaults to adding to the cart
@@ -26,6 +26,11 @@ function RecipeCard({recipe}) {
         })
     }
 
+    const changeFavorite = (val) => {
+
+    }
+
+
     return (
         <>
             <Card style={{ width: '18rem' }}>
@@ -39,11 +44,18 @@ function RecipeCard({recipe}) {
                 {recipe.isCurrent ?
                   <Button variant="primary" onClick={() => {changeCart('remove')}}>Remove from Cart</Button>
                 :
+                <Button variant="primary" onClick={() => {setCartModalShow(true)}}>Add to Cart</Button>
+                }
+                {recipe.isFavorite ?
+                  <Button variant="primary" onClick={() => {changeFavorite('remove')}}>Remove from Cart</Button>
+                :
                 <Button variant="primary" onClick={() => {setModalShow(true)}}>Add to Cart</Button>
                 }
+
+
                 <ServingsModal 
-                  show={modalShow} 
-                  onHide={() => setModalShow(false)} 
+                  show={cartModalShow} 
+                  onHide={() => setCartModalShow(false)} 
                   confirm={() => changeCart()}
                   heading={recipe.title}
                   setservings={setServings}
