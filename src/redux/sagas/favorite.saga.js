@@ -1,5 +1,5 @@
 import axios from "axios";
-import { takeEvery } from "redux-saga/effects";
+import { put, takeEvery } from "redux-saga/effects";
 
 
 function* changeFavorite(action) {
@@ -12,9 +12,9 @@ function* changeFavorite(action) {
         // send to search state reducer
         const inDatabase = yield axios({
             method: 'GET',
-            url: `/api/favorite/${action.payload.userId}/${action.payload.recipeId}`
+            url: `/api/favorite/${action.payload.userId}/${action.payload.recipeId}/exist`
         })
-        console.log('inDatabase: ', inDatabase.data.exists);
+        // console.log('inDatabase: ', inDatabase.data.exists);
         if (inDatabase.data.exists) {
             // put route
             yield axios({
@@ -36,19 +36,20 @@ function* changeFavorite(action) {
                 }
             })
         }
-
-
-        // send to db that we want to POST the favorites value
-        // yield axios({
-        //     type: 'POST',
-        //     url: '/api/favorite',
-        //     data: {
-        //         recipeId: action.payload.recipeId,
-        //         userId: action.payload.userId
-        //     }
-        // })
-        // get value from db
+        // get the value from the db
+        // now we KNOW it exists
+        const isFavorite = yield axios({
+            method: 'GET',
+            url: `/api/favorite/${action.payload.userId}/${action.payload.recipeId}`
+        })
         // update search state w/ the value
+        yield put({
+            type: 'UPDATE_FAVORITE',
+            payload: {
+                isFavorite: isFavorite.data,
+                recipeId: action.payload.recipeId
+            }
+        })
     } catch (error) {
         console.log('Failed to set Favorites: ', error);
         alert('Failed to set Favorites. See console for details.')
