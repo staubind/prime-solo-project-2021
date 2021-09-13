@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/Container';
 // adapted from Bootstrap-react's modal.
-function ServingsModal(props) {
+function FavoritesModal(props) {
     return (
       <Modal
         {...props}
@@ -17,24 +17,7 @@ function ServingsModal(props) {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <h4>Number of Servings:</h4>
-
-
-          {/* I'm wary of the form */}
-          <Form.Select aria-label="Default select example" onChange={(event) => {props.setservings(event.target.value)}}> 
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-              <option value="7">7</option>
-              <option value="8">8</option>
-              <option value="9">9</option>
-              <option value="10">10</option>
-          </Form.Select>
-          {/* I'm wary of the form */}
-
+          <h4>Are you sure you want to remove this recipe from your favorites?</h4>
         </Modal.Body>
         <Modal.Footer>
         <Button variant="secondary" onClick={props.onHide}>Close</Button>
@@ -48,4 +31,4 @@ function ServingsModal(props) {
     );
   }
 
-export default ServingsModal;
+export default FavoritesModal;
