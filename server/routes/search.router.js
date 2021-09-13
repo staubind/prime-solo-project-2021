@@ -11,13 +11,15 @@ async function addIsCurrentProperty(userId, recipeList) {
   for (let i = 0; i < recipeList.results.length; i++) {
     recipe = recipeList.results[i]
     recipe['isCurrent'] = false
-    const query =  `SELECT "is_current" FROM "user_recipes"
+    recipe['isFavorite'] = false
+    const query =  `SELECT "is_current", "is_favorite" FROM "user_recipes"
                     WHERE "user_id" = $1 AND "recipe_id" = $2`
     const params = [userId, recipe.id]
     // see if it exists in the db
     await pool.query(query, params).then(dbResponse => {
       if (dbResponse.rowCount !== 0) {
         recipe['isCurrent'] = dbResponse.rows[0].is_current    
+        recipe['isFavorite'] = dbResponse.rows[0].is_favorite
       } 
       // console.log('after updating: ', recipe['isCurrent'])
       // if exists give it value from db

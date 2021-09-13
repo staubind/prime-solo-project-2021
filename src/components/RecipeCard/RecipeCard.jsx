@@ -58,9 +58,9 @@ function RecipeCard({recipe}) {
                   setservings={setServings}
                 />
                 {recipe.isFavorite ?
-                  <Button variant="primary" onClick={() => {changeFavorite()}}>Remove from Favorites</Button>
+                  <Button variant="primary" onClick={() => {setFavoriteModalShow(true)}}>Remove from Favorites</Button>
                 :
-                <Button variant="primary" onClick={() => {setFavoriteModalShow(true)}}>Add to Favorites</Button>
+                <Button variant="primary" onClick={() => {changeFavorite()}}>Add to Favorites</Button>
                 }
                 <FavoritesModal 
                   show={favoriteModalShow} 

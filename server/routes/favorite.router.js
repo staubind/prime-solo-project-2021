@@ -4,6 +4,19 @@ const pool = require('../modules/pool');
 const router = express.Router()
 
 router.get('/:userId/:recipeId', rejectUnauthenticated, (req, res) => {
+    const sqlQuery = `SELECT "is_favorite" FROM "user_recipes"
+                      WHERE "user_id" = $1 AND "recipe_id" = $2`;
+    const sqlParams = [req.user.id, req.params.recipeId] // maybe need to call number on recipeId
+    pool.query(sqlQuery, sqlParams).then(dbResponse => {
+        // console.log('what we got from db and want to send onward: ', dbResponse.rows[0])
+        res.send(dbResponse.rows[0].is_favorite)
+    }).catch(error => {
+        console.log('Failed to retrieve up-to-date isFavorite parameter: ', error);
+        res.sendStatus(500);
+    });
+})
+
+router.get('/:userId/:recipeId/exist', rejectUnauthenticated, (req, res) => {
     // check if the user has this recipe favorited
     const sqlQuery = `SELECT "is_favorite" from "user_recipes"
                       WHERE "user_id" = $1 and "recipe_id" = $2;`
