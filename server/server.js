@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 require('dotenv').config();
 const searchRouter = require('./routes/search.router.js')
 const cartRouter = require('./routes/cart.router.js')
+const favoriteRouter = require('./routes/favorite.router')
 const app = express();
 
 const sessionMiddleware = require('./modules/session-middleware');
@@ -26,6 +27,8 @@ app.use(passport.session());
 app.use('/api/user', userRouter);
 app.use('/api/search', searchRouter);
 app.use('/api/cart', cartRouter);
+app.use('/api/favorite', favoriteRouter);
+
 // Serve static files
 app.use(express.static('build'));
 

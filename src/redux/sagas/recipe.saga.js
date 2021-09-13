@@ -1,6 +1,8 @@
 import { put, takeLatest } from "redux-saga/effects";
 import axios from 'axios';
 
+// maybe able to compress this and removeFromCart into one function
+// and have the logic change dependign on the action.type
 function* addToCart(action) {
     // console.log('have we even made it to the saga?')
     // console.log('user is: ', action.payload.userId);
@@ -69,7 +71,13 @@ function* removeFromCart(action) {
     }
 }
 
+function* addToFavorites(action) {
 
+}
+
+function* removeFromFavorites(action) {
+    
+}
 
 function* recipeSaga(action) {
     yield takeLatest('ADD_TO_CART', addToCart);
