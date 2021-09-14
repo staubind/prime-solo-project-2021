@@ -56,8 +56,31 @@ function* changeFavorite(action) {
     }
 };
 
+function* fetchAllFavorites(action) {
+    try {
+        console.log('sending to the database will be: ', action.payload)
+        const results = yield axios({
+            method: 'GET',
+            url: '/api/favorite/all',
+            params: {
+                favorites: action.payload // this isn't working as expected - not finding it on the other side.
+            }
+        })
+        console.log('results from the fetch all favorites was: ', results.data);
+        // put to the reducer
+        yield put({
+            type: 'SET_FAVORITE_REDUCER',
+            payload: results.data
+        })
+    } catch (error) {
+        console.log('Failed to fetch all favorites for this user: ', error);
+        alert('Failed to fetch all favorites. See console for details: ', error);
+    }
+}
+
 function* favoriteSaga(action) {
     yield takeEvery('CHANGE_RECIPE_FAVORITE', changeFavorite);
+    yield takeEvery('FETCH_ALL_FAVORITES', fetchAllFavorites)
 };
 
 export default favoriteSaga;

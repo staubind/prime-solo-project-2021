@@ -19,11 +19,13 @@ import InfoPage from '../InfoPage/InfoPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
-
+import Favorites from '../Favorites/Favorites';
 import NavigationBar from '../Navbar/Navbar';
 
 import './App.css';
 import Search from '../Search/Search';
+
+
 
 function App() {
   const dispatch = useDispatch();
@@ -67,9 +69,9 @@ function App() {
           <ProtectedRoute
             // logged in shows InfoPage else shows LoginPage
             exact
-            path="/info"
+            path="/favorites"
           >
-            <InfoPage />
+            <Favorites />
           </ProtectedRoute>
 
           <ProtectedRoute
