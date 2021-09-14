@@ -68,4 +68,19 @@ router.get('/:recipeId/isCurrent', rejectUnauthenticated, (req, res) => {
     })
 })
 
+router.get('/', rejectUnauthenticated, (req, res) => {
+    const sqlQuery = `SELECT ARRAY_AGG("recipe_id") as "cart" FROM "user_recipes"
+                      WHERE "user_id" = $1 AND "is_current" = TRUE`;
+    const sqlParams = [req.user.id];
+    pool.query(sqlQuery, sqlParams).then(dbRes => {
+        console.log('dbRes.rows is: ', dbRes.rows[0])
+        // call spoonacular api w/ appropriate info
+        // add favorites and current properties (preparedResults thing)
+        // send back to front end
+    }).catch(error => {
+        console.log('Failed to get cart contents: ', error);
+        res.sendStatus(500);
+    })
+
+})
 module.exports = router;

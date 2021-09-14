@@ -4,6 +4,8 @@ import user from './user.reducer';
 import search from './search.reducer';
 import searchTermReducer from './searchTerm.reducer'
 import favoriteReducer from './favorite.reducer';
+import cartReducer from './cart.reducer';
+
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
 // This is imported in index.js as rootSaga
@@ -16,6 +18,7 @@ const rootReducer = combineReducers({
   search, // contains list of search results
   searchTermReducer, // contains most recent search term for use elsewhere
   favoriteReducer,
+  cartReducer,
 });
 
 export default rootReducer;

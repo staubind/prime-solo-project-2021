@@ -66,7 +66,7 @@ function* fetchAllFavorites(action) {
                 favorites: action.payload // this isn't working as expected - not finding it on the other side.
             }
         })
-        console.log('results from the fetch all favorites was: ', results.data);
+        // console.log('results from the fetch all favorites was: ', results.data);
         // put to the reducer
         yield put({
             type: 'SET_FAVORITE_REDUCER',

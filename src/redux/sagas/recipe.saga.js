@@ -71,14 +71,6 @@ function* removeFromCart(action) {
     }
 }
 
-function* addToFavorites(action) {
-
-}
-
-function* removeFromFavorites(action) {
-    
-}
-
 function* recipeSaga(action) {
     yield takeLatest('ADD_TO_CART', addToCart);
     yield takeLatest('REMOVE_FROM_CART', removeFromCart);
