@@ -15,7 +15,6 @@ function* search(action) {
         // or we can modify the object itself.
         // since the recipe object itself will be passed to hte recipe, this second option makes the most sense to me
 
-
         yield put({
             type: 'SET_SEARCH_TERM',
             payload: action.payload})

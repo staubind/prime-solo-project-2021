@@ -26,7 +26,7 @@ router.get('/all', rejectUnauthenticated, (req, res) => {
                 ids: dbResponse.rows[0].favorites.join(',')
             }
         }).then(async apiRes => {
-            console.log('get all favorites from api yielded: ', apiRes.data);
+            // console.log('get all favorites from api yielded: ', apiRes.data);
             const preparedResults = await addCurrentAndFavorites(req.user.id, apiRes.data)
             if (preparedResults === 'addIsCurrent failed') {
                 console.log('addIsCurrent Failed.')

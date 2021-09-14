@@ -53,7 +53,7 @@ router.get('/', (req, res) => {
   })
   .then(async apiResponse => {
     // console.log('api request succeeded: ', apiResponse.data)
-    const preparedResults = await addCurrentAndFavorites(req.user.id, apiResponse.data)
+    const preparedResults = await addCurrentAndFavorites(req.user.id, apiResponse.data.results)
     // console.log('the prepared results for item 0 is: ', preparedResults.results[0].isCurrent);
     // console.log('the prepared results for item 1 is: ', preparedResults.results[1].isCurrent);
     if (preparedResults === 'addIsCurrent failed') {

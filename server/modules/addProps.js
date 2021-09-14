@@ -4,8 +4,8 @@ async function addCurrentAndFavorites(userId, recipeList) {
     // this function checks if the search results exist in the db for that user
     // and if they are already in the user's cart
     // we need this to do some conditional rendering on the front end
-    for (let i = 0; i < recipeList.results.length; i++) {
-      recipe = recipeList.results[i]
+    for (let i = 0; i < recipeList.length; i++) {
+      recipe = recipeList[i]
       recipe['isCurrent'] = false
       recipe['isFavorite'] = false
       const query =  `SELECT "is_current", "is_favorite" FROM "user_recipes"
@@ -19,7 +19,7 @@ async function addCurrentAndFavorites(userId, recipeList) {
         } 
         // console.log('after updating: ', recipe['isCurrent'])
         // if exists give it value from db
-        recipeList.results[i] = recipe
+        recipeList[i] = recipe
         // console.log('after assigning it back into recipeList: ', recipeList.results[i].isCurrent)
       }).catch(error => {
         console.log('Failed to decide if recipe is current or not: ', error);
