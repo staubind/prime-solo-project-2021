@@ -8,7 +8,7 @@ const searchReducer = (state = [], action) => {
           // can be done on the server side - run a check through the db for
           // any matching spoonacular ids for that user
 
-        return action.payload.data.results;
+        return action.payload.data;
       case 'UPDATE_SEARCH_REDUCER':
         // console.log('recipe id we are looking for is: ', action.payload.recipeId); // typeof reveals payload is string
         let newState = [...state]

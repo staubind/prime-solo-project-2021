@@ -38,8 +38,8 @@ function NavigationBar() {
               navbarScroll
             >
               {/* if nobody is logged in, we should redirect to login/register view */}
-              <LinkContainer to="/user">
-                  <Nav.Link>Profile</Nav.Link>
+              <LinkContainer to="/favorites">
+                  <Nav.Link>Favorites</Nav.Link>
               </LinkContainer>
               {/* if nobody is logged in, we should redirect to login/register view */}
               <LinkContainer to="/search">

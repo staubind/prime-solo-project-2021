@@ -2,6 +2,47 @@ const express = require('express')
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 const pool = require('../modules/pool');
 const router = express.Router()
+const axios = require('axios');
+const addCurrentAndFavorites = require('../modules/addProps');
+
+router.get('/all', rejectUnauthenticated, (req, res) => {
+    const sqlQuery = `SELECT ARRAY_AGG("recipe_id") AS "favorites" FROM "user_recipes"
+                      WHERE "user_id" = $1 AND "is_favorite" = TRUE;`;
+    const sqlParams = [req.user.id];
+    // console.log(req.query.favorites) // will be undefined if we send an empty array, but it is coming through.
+    pool.query(sqlQuery, sqlParams).then(dbResponse => {
+        // all of this logic would be to minimize api usage
+            // compare what's different in the ids sent by the front end to what we've got in dbResponse.rows[0].favorites
+                // make a function to do this
+            // then do an api call only for what is different
+        // console.log('favorites is: ', dbResponse.rows[0].favorites.join(','))
+        
+        // api call here:
+        axios({
+            method: 'GET',
+            url: 'https://api.spoonacular.com/recipes/informationBulk',
+            params: {
+                apiKey: process.env.SPOONACULAR_API_KEY,
+                ids: dbResponse.rows[0].favorites.join(',')
+            }
+        }).then(async apiRes => {
+            // console.log('get all favorites from api yielded: ', apiRes.data);
+            const preparedResults = await addCurrentAndFavorites(req.user.id, apiRes.data)
+            if (preparedResults === 'addIsCurrent failed') {
+                console.log('addIsCurrent Failed.')
+                res.sendStatus(500);
+            }
+            res.send(preparedResults);
+        }).catch(error => {
+            console.log('Failed to retrieve all favorites info from spoonacular: ', error)
+            res.sendStatus(500);
+        })
+        // res.send(dbResponse.rows[0].favorites);
+    }).catch(error => {
+        console.log('Failed to fetch all users favorites: ', error);
+        res.sendStatus(500);
+    });
+})
 
 router.get('/:userId/:recipeId', rejectUnauthenticated, (req, res) => {
     const sqlQuery = `SELECT "is_favorite" FROM "user_recipes"
