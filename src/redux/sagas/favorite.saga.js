@@ -43,6 +43,8 @@ function* changeFavorite(action) {
             url: `/api/favorite/${action.payload.userId}/${action.payload.recipeId}`
         })
         // update search state w/ the value
+        // ----------
+        // WE MUST ALSO UPDATE THE FAVORITES AND CART
         yield put({
             type: 'UPDATE_FAVORITE',
             payload: {

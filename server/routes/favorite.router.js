@@ -15,29 +15,31 @@ router.get('/all', rejectUnauthenticated, (req, res) => {
             // compare what's different in the ids sent by the front end to what we've got in dbResponse.rows[0].favorites
                 // make a function to do this
             // then do an api call only for what is different
-        // console.log('favorites is: ', dbResponse.rows[0].favorites.join(','))
+        // console.log('favorites is: ', !!dbResponse.rows[0].favorites)
         
         // api call here:
-        axios({
-            method: 'GET',
-            url: 'https://api.spoonacular.com/recipes/informationBulk',
-            params: {
-                apiKey: process.env.SPOONACULAR_API_KEY,
-                ids: dbResponse.rows[0].favorites.join(',')
-            }
-        }).then(async apiRes => {
-            // console.log('get all favorites from api yielded: ', apiRes.data);
-            const preparedResults = await addCurrentAndFavorites(req.user.id, apiRes.data)
-            if (preparedResults === 'addIsCurrent failed') {
-                console.log('addIsCurrent Failed.')
+        if (!!dbResponse.rows[0].favorites) {
+            axios({
+                method: 'GET',
+                url: 'https://api.spoonacular.com/recipes/informationBulk',
+                params: {
+                    apiKey: process.env.SPOONACULAR_API_KEY,
+                    ids: dbResponse.rows[0].favorites.join(',')
+                }
+            }).then(async apiRes => {
+                // console.log('get all favorites from api yielded: ', apiRes.data);
+                const preparedResults = await addCurrentAndFavorites(req.user.id, apiRes.data)
+                if (preparedResults === 'addCurrentAndFavorites failed') {
+                    console.log('addCurrentAndFavorites Failed.')
+                    res.sendStatus(500);
+                }
+                res.send(preparedResults);
+            }).catch(error => {
+                console.log('Failed to retrieve all favorites info from spoonacular: ', error)
                 res.sendStatus(500);
-            }
-            res.send(preparedResults);
-        }).catch(error => {
-            console.log('Failed to retrieve all favorites info from spoonacular: ', error)
-            res.sendStatus(500);
-        })
-        // res.send(dbResponse.rows[0].favorites);
+            })
+            // res.send(dbResponse.rows[0].favorites);
+        }
     }).catch(error => {
         console.log('Failed to fetch all users favorites: ', error);
         res.sendStatus(500);

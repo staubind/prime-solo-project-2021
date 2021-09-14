@@ -1,6 +1,9 @@
 const express = require('express');
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 const pool = require('../modules/pool');
+const axios = require('axios');
+const addCurrentAndFavorites = require('../modules/addProps');
+
 const router = express.Router();
 
 
@@ -72,11 +75,30 @@ router.get('/', rejectUnauthenticated, (req, res) => {
     const sqlQuery = `SELECT ARRAY_AGG("recipe_id") as "cart" FROM "user_recipes"
                       WHERE "user_id" = $1 AND "is_current" = TRUE`;
     const sqlParams = [req.user.id];
-    pool.query(sqlQuery, sqlParams).then(dbRes => {
-        console.log('dbRes.rows is: ', dbRes.rows[0])
+    pool.query(sqlQuery, sqlParams).then(async dbRes => {
+        // console.log('dbRes.rows is: ', dbRes.rows[0].cart.join(','))
         // call spoonacular api w/ appropriate info
-        // add favorites and current properties (preparedResults thing)
-        // send back to front end
+        if (!!dbRes.rows[0].cart) {
+            axios({
+                method: 'GET',
+                url: 'https://api.spoonacular.com/recipes/informationBulk',
+                params: {
+                    apiKey: process.env.SPOONACULAR_API_KEY,
+                    ids: dbRes.rows[0].cart.join(',')
+                }
+            }).then(async apiRes => {
+                // console.log('get all favorites from api yielded: ', apiRes.data);
+                const preparedResults = await addCurrentAndFavorites(req.user.id, apiRes.data)
+                if (preparedResults === 'addCurrentAndFavorites failed') {
+                    console.log('addCurrentAndFavorites Failed.')
+                    res.sendStatus(500);
+                }
+                res.send(preparedResults);
+        }).catch(error => {
+            console.log('Failed to retrieve all favorites info from spoonacular: ', error)
+            res.sendStatus(500);
+        })
+    }
     }).catch(error => {
         console.log('Failed to get cart contents: ', error);
         res.sendStatus(500);

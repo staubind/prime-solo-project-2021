@@ -1,4 +1,4 @@
-import { takeEvery } from "@redux-saga/core/effects";
+import { takeEvery, put } from "@redux-saga/core/effects";
 import axios from "axios";
 
 function* fetchCart(action) {
@@ -13,10 +13,10 @@ function* fetchCart(action) {
         })
         console.log('we are getting this back from the cart server: ', results.data)
         // send them to the reducer
-        // yield put({
-        //     type: 'SET_CART_REDUCER',
-        //     payload: results
-        // })
+        yield put({
+            type: 'SET_CART_REDUCER',
+            payload: results.data
+        })
     } catch (error) {
         console.log('Failed to fetch the cart: ', error);
         alert('Failed to fetch the cart. See the console for details.')

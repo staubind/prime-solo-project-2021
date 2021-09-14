@@ -19,7 +19,6 @@ function RecipeCard({recipe}) {
         if (val === 'remove') {
             type = 'REMOVE_FROM_CART'
         }
-        // setIsCurrentlyAdd(!isCurrentlyAdd);
         // send the id to our saga
         dispatch({
             type: type,

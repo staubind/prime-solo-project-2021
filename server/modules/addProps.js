@@ -23,7 +23,7 @@ async function addCurrentAndFavorites(userId, recipeList) {
         // console.log('after assigning it back into recipeList: ', recipeList.results[i].isCurrent)
       }).catch(error => {
         console.log('Failed to decide if recipe is current or not: ', error);
-        return 'addIsCurrent failed';
+        return 'addCurrentAndFavorites';
       })
     }
     // await console.log('Inside addIsCurrentProperty-----------------')
