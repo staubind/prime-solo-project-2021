@@ -52,7 +52,6 @@ function App() {
             path="/cart"
           >
             <Cart />
-            <Search />
           </Route>
 
           {/* For protected routes, the view could show one of several things on the same route.
@@ -72,7 +71,7 @@ function App() {
             exact
             path="/favorites"
           >
-            <Favorites />
+            {/* <Favorites /> */}
           </ProtectedRoute>
 
           <ProtectedRoute

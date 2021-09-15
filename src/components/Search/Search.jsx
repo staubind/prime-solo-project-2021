@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import RecipeCard from '../RecipeCard/RecipeCard';
+import { Container, Row } from 'react-bootstrap';
 // uses the navbar search utility
 
 function Search() {
@@ -12,12 +13,14 @@ function Search() {
 
     // just returns the recipe cards
     return (
-        <>
+        <Container>
+            <Row className="justify-content-md-center">
             <h1>Showing results for: {searchTerm}</h1>
             {searchResults.map(recipe => {
                 return <RecipeCard key={recipe.id} recipe={recipe}/>
             })}
-        </>
+            </Row>
+        </Container>
     );
 }; 
 

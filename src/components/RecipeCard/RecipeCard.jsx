@@ -24,6 +24,7 @@ function RecipeCard({recipe}) {
             type: type,
             payload: {recipeId: recipe.id, userId: user.id, servings: servings}
         })
+        // could dispatch to the cart reducer and just add it there
     }
 
     const changeFavorite = () => {
