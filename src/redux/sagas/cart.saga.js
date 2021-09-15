@@ -1,10 +1,11 @@
 import { takeLatest, put } from "@redux-saga/core/effects";
 import axios from "axios";
+import cacheAxios from "./cacheAxios";
 
 function* fetchCart(action) {
     try {
         // axios call to get all cart items for that user
-        const results = yield axios({
+        const results = yield cacheAxios({
             method: 'GET',
             url: 'api/cart',
             params: {
@@ -53,7 +54,7 @@ function* addToCart(action) {
         })
         // need to update the cart reducer as well
         // just run the fetch cart again?
-        // fetchCart(action)
+        yield fetchCart(action)
     } catch (error) {
         console.log('Failed to add to cart: ', error);
         alert('Failed to add to cart. See console for details.');
@@ -90,7 +91,7 @@ function* removeFromCart(action) {
         })
         // update cart reducer, too
         // just run fetch cart again.
-        fetchCart(action);
+        yield fetchCart(action);
     } catch (error) {
         console.log('Failed to remove from cart: ', error);
         alert('Failed to remove from cart. See console for details.');

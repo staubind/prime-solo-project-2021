@@ -1,7 +1,7 @@
 const express = require('express');
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 const pool = require('../modules/pool');
-const cacheAxios = require('../modules/cacheAxios');
+const axios = require('axios');
 const addCurrentAndFavorites = require('../modules/addProps');
 
 const router = express.Router();
@@ -79,7 +79,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
         // console.log('dbRes.rows is: ', dbRes.rows[0].cart.join(','))
         // call spoonacular api w/ appropriate info
         if (!!dbRes.rows[0].cart) {
-            cacheAxios({
+            axios({
                 method: 'GET',
                 url: 'https://api.spoonacular.com/recipes/informationBulk',
                 params: {
@@ -98,6 +98,8 @@ router.get('/', rejectUnauthenticated, (req, res) => {
             console.log('Failed to retrieve all favorites info from spoonacular: ', error)
             res.sendStatus(500);
         })
+    } else {
+        res.send([]);
     }
     }).catch(error => {
         console.log('Failed to get cart contents: ', error);
