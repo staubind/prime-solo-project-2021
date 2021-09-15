@@ -19,12 +19,12 @@ function RecipeCard({recipe}) {
         if (val === 'remove') {
             type = 'REMOVE_FROM_CART'
         }
-        // setIsCurrentlyAdd(!isCurrentlyAdd);
         // send the id to our saga
         dispatch({
             type: type,
             payload: {recipeId: recipe.id, userId: user.id, servings: servings}
         })
+        // could dispatch to the cart reducer and just add it there
     }
 
     const changeFavorite = () => {

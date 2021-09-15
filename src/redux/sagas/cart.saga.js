@@ -1,8 +1,29 @@
-import { put, takeLatest } from "redux-saga/effects";
-import axios from 'axios';
+import { takeLatest, put } from "@redux-saga/core/effects";
+import axios from "axios";
+import cacheAxios from "./cacheAxios";
 
-// maybe able to compress this and removeFromCart into one function
-// and have the logic change dependign on the action.type
+function* fetchCart(action) {
+    try {
+        // axios call to get all cart items for that user
+        const results = yield cacheAxios({
+            method: 'GET',
+            url: 'api/cart',
+            params: {
+                cart: action.payload
+            }
+        })
+        // console.log('we are getting this back from the cart server: ', results.data)
+        // send them to the reducer
+        yield put({
+            type: 'SET_CART_REDUCER',
+            payload: results.data
+        })
+    } catch (error) {
+        console.log('Failed to fetch the cart: ', error);
+        alert('Failed to fetch the cart. See the console for details.')
+    }
+};
+
 function* addToCart(action) {
     // console.log('have we even made it to the saga?')
     // console.log('user is: ', action.payload.userId);
@@ -31,6 +52,9 @@ function* addToCart(action) {
                 isCurrent: isCurrent.data.isCurrent
             }
         })
+        // need to update the cart reducer as well
+        // just run the fetch cart again?
+        yield fetchCart(action)
     } catch (error) {
         console.log('Failed to add to cart: ', error);
         alert('Failed to add to cart. See console for details.');
@@ -65,23 +89,19 @@ function* removeFromCart(action) {
                 isCurrent: isCurrent.data.isCurrent
             }
         })
+        // update cart reducer, too
+        // just run fetch cart again.
+        yield fetchCart(action);
     } catch (error) {
         console.log('Failed to remove from cart: ', error);
         alert('Failed to remove from cart. See console for details.');
     }
 }
 
-function* addToFavorites(action) {
-
-}
-
-function* removeFromFavorites(action) {
-    
-}
-
-function* recipeSaga(action) {
+function* cartSaga(action) {
+    yield takeLatest('FETCH_CART', fetchCart);
     yield takeLatest('ADD_TO_CART', addToCart);
     yield takeLatest('REMOVE_FROM_CART', removeFromCart);
 }
 
-export default recipeSaga;
+export default cartSaga;
