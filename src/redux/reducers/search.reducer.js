@@ -17,9 +17,10 @@ const searchReducer = (state = [], action) => {
         // update the isCurrent attribute
         // console.log('index is: ', index);
         // console.log(`starting isCurrent value is state[${index}].isCurrent: `, state[index].isCurrent);
+        if (index > -1) {
         newState[index].isCurrent = action.payload.isCurrent
         // console.log(`ending newState[${index}].isCurrent value is: `, newState[index].isCurrent)
-
+        }
         // return the object
         return newState
       case 'UPDATE_FAVORITE':

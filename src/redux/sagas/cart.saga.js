@@ -90,7 +90,7 @@ function* removeFromCart(action) {
         })
         // update cart reducer, too
         // just run fetch cart again.
-        // fetchCart(action);
+        fetchCart(action);
     } catch (error) {
         console.log('Failed to remove from cart: ', error);
         alert('Failed to remove from cart. See console for details.');

@@ -13,14 +13,16 @@ function Search() {
 
     // just returns the recipe cards
     return (
-        <Container>
-            <Row className="justify-content-md-center">
+        <>
+        {/* // <Container>
+        //     <Row className="justify-content-md-center"> */}
             <h1>Showing results for: {searchTerm}</h1>
             {searchResults.map(recipe => {
                 return <RecipeCard key={recipe.id} recipe={recipe}/>
             })}
-            </Row>
-        </Container>
+            {/* </Row>
+        </Container> */}
+        </>
     );
 }; 
 
