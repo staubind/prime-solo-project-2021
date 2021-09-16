@@ -72,7 +72,7 @@ function App() {
             exact
             path="/favorites"
           >
-            {/* <Favorites /> */}
+            <Favorites />
           </ProtectedRoute>
 
           <ProtectedRoute
