@@ -2,9 +2,10 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import RecipeCard from '../RecipeCard/RecipeCard';
 import { Tabs, Tab, Container } from "react-bootstrap";
+import IngredientList from "../IngredientList/IngredientList";
 
 // this gathers the ingredients for the recipe display
-function sumIngredients(recipes) {
+function makeGroceryList(recipes) {
     let totalIngredients = {};
     // need recipe list 
     // also need servings per recipe
@@ -42,8 +43,8 @@ function Cart() {
                         return <RecipeCard key={recipe.id} recipe={recipe}/>
                     })}
                 </Tab>
-                <Tab eventKey="profile" title="hai">
-                    <p>hi</p>
+                <Tab eventKey="profile" title="Grocery List">
+                    <IngredientList ingredients={makeGroceryList(cart)}/>
                 </Tab>
             </Tabs>        
         </Container>
