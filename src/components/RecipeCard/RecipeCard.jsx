@@ -53,7 +53,6 @@ function RecipeCard({recipe}) {
                 <Card.Text>
                   {recipe.title}
                 </Card.Text>
-                  {/* time for conditional button rendering. Hell yeah. */}
                 {recipe.isCurrent ?
                   <Button variant="primary" onClick={() => {changeCart('remove')}}>Remove from Cart</Button>
                 :
