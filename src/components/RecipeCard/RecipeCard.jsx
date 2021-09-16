@@ -38,7 +38,7 @@ function RecipeCard({recipe}) {
 
     const launchDetailView = () => {
       dispatch({
-        type: 'UPDATE_DETAIL_REDUCER',
+        type: 'SET_DETAIL_REDUCER',
         payload: recipe
       })
       history.push('/detail')

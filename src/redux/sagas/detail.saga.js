@@ -2,7 +2,7 @@ import { put, takeLatest } from "redux-saga/effects";
 
 function* detail(action) {
     try {
-        put({
+        yield put({
             type: 'SET_DETAIL_REDUCER',
             payload: action.payload
         })

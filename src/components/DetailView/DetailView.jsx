@@ -1,12 +1,16 @@
+import { useEffect } from 'react';
 import { Accordion } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 
 function DetailView() {
     const recipe = useSelector(state => state.detailReducer)
 
+    // useEffect(() => {
+    //     console.log(recipe);
+    // },[])
+
     return (
         <>
-        
         <img src={recipe.image} />
         <h2>{recipe.name}</h2>
         <h4>Ready in: {recipe.readyInMinutes}</h4>
@@ -23,7 +27,7 @@ function DetailView() {
                     {recipe.analyzedInstructions.map((majorStep, i) => {
                         return (
                             <li>
-                                <h1>Part {i}</h1>
+                                <h1>Part {i+1}</h1>
                                 <ol>
                                     {majorStep.steps.map(step => <li>{step.step}</li>)}
                                 </ol>
@@ -33,7 +37,7 @@ function DetailView() {
                     </ul>
                 </Accordion.Body>
             </Accordion.Item>
-            <Accordion.Item eventKey="0">
+            <Accordion.Item eventKey="1">
                 <Accordion.Header>Ingredients</Accordion.Header>
                 <Accordion.Body>
                     <ul>
