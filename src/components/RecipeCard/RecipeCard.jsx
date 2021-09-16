@@ -5,9 +5,11 @@ import { useSelector } from 'react-redux';
 import ServingsModal from '../ServingsModal/ServingsModal';
 import { useState } from 'react';
 import FavoritesModal from '../FavoritesModal/FavoritesModal';
+import { useHistory } from 'react-router-dom';
 
 function RecipeCard({recipe}) {
     const dispatch = useDispatch();
+    const history = useHistory();
     const user = useSelector(store => store.user)
     const [cartModalShow, setCartModalShow] = useState(false)
     const [servings, setServings] = useState(1)
@@ -34,11 +36,18 @@ function RecipeCard({recipe}) {
       })
     }
 
+    const launchDetailView = () => {
+      dispatch({
+        type: 'SET_DETAIL_REDUCER',
+        payload: recipe
+      })
+      history.push('/detail')
+    }
 
     return (
         <>
             <Card style={{ width: '18rem' }}>
-              <Card.Img variant="top" src={recipe.image} />
+              <Card.Img onClick={() => launchDetailView()} variant="top" src={recipe.image} />
               <Card.Body>
                 <Card.Title>{recipe.title} {recipe.id}</Card.Title>
                 <Card.Text>

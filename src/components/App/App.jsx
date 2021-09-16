@@ -25,6 +25,7 @@ import Cart from '../Cart/Cart';
 
 import './App.css';
 import Search from '../Search/Search';
+import DetailView from '../DetailView/DetailView';
 
 
 
@@ -72,6 +73,14 @@ function App() {
             path="/favorites"
           >
             {/* <Favorites /> */}
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // logged in shows InfoPage else shows LoginPage
+            exact
+            path="/detail"
+          >
+            <DetailView />
           </ProtectedRoute>
 
           <ProtectedRoute
