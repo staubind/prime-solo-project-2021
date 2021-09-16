@@ -6,7 +6,12 @@ function IngredientList({ingredients}) {
         {/* // for each aisle: */}
         {Object.keys(ingredients).sort().map(aisle => {
             return (
-                <IngredientSection aisleIngredients={Array.from(ingredients[aisle]).sort()}/>
+                <>
+                    <br></br>
+                    <h2>{aisle}</h2>
+                    <br></br>
+                    <IngredientSection aisleIngredients={Array.from(ingredients[aisle]).sort()}/>
+                </>
             );// list of ingredientSections
         })}  
         </>      

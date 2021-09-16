@@ -9,8 +9,8 @@ function makeGroceryList(recipes) {
     let totalIngredients = {};
     // need recipe list 
     // also need servings per recipe
-    for (recipe of recipes) {
-        for (ingredient of recipe.extendedIngredients) {
+    for (let recipe of recipes) {
+        for (let ingredient of recipe.extendedIngredients) {
                 if (totalIngredients[ingredient.aisle] === undefined) {
                     totalIngredients[ingredient.aisle] = new Set();
                     totalIngredients[ingredient.aisle].add(ingredient.name)
