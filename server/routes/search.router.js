@@ -14,7 +14,7 @@ router.get('/', (req, res) => {
         // grabs the api key from environment variables to keep our key secure
         apiKey: process.env.SPOONACULAR_API_KEY,
         query: req.query.searchTerm,
-        number: 2, // adjust later
+        number: 10, // adjust later
         fillIngredients: true,
         addRecipeInformation: true,
     }

@@ -7,6 +7,20 @@ const addCurrentAndFavorites = require('../modules/addProps');
 const router = express.Router();
 
 
+// ------------ cache axios stuff
+// axios imported above
+const setupCache = require('axios-cache-adapter').setupCache;
+
+const cache = setupCache({
+    maxAge: 15 * 60 * 1000
+})
+
+const cacheAxios = axios.create({
+    adapter: cache.adapter
+  })
+// ------------ cache axios stuff - END
+
+
 router.post('/', rejectUnauthenticated, (req, res) => {
     // check if the row exists in the database
     const updateSqlQuery = `UPDATE "user_recipes"
@@ -79,7 +93,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
         // console.log('dbRes.rows is: ', dbRes.rows[0].cart.join(','))
         // call spoonacular api w/ appropriate info
         if (!!dbRes.rows[0].cart) {
-            axios({
+            cacheAxios({
                 method: 'GET',
                 url: 'https://api.spoonacular.com/recipes/informationBulk',
                 params: {
