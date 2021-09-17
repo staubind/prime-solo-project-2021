@@ -52,7 +52,7 @@ function NavigationBar() {
 
               {/* need links for login/logout */}
               <LinkContainer to="/search">
-                  <Nav.Link>Login/Logout</Nav.Link>
+                  <Nav.Link onClick={() => dispatch({ type: 'LOGOUT' })}>Logout</Nav.Link>
               </LinkContainer>
             </Nav>
             <Form className="d-flex" onSubmit={search}> 

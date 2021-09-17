@@ -41,19 +41,18 @@ function App() {
   return (
     <Router>
       <div>
-        <NavigationBar />
         <Switch>
           {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
           <Redirect exact from="/" to="/home" />
 
           {/* Visiting localhost:3000/about will show the about page. */}
-          <Route
-            // shows AboutPage at all times (logged in or not)
+          <ProtectedRoute
             exact
             path="/cart"
           >
+            <NavigationBar />
             <Cart />
-          </Route>
+          </ProtectedRoute>
 
           {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/user will show the UserPage if the user is logged in.
@@ -64,6 +63,7 @@ function App() {
             exact
             path="/user"
           >
+            <NavigationBar />
             <UserPage />
           </ProtectedRoute>
 
@@ -72,6 +72,7 @@ function App() {
             exact
             path="/favorites"
           >
+            <NavigationBar />
             <Favorites />
           </ProtectedRoute>
 
@@ -80,6 +81,7 @@ function App() {
             exact
             path="/detail"
           >
+            <NavigationBar />
             <DetailView />
           </ProtectedRoute>
 
@@ -87,6 +89,7 @@ function App() {
             exact
             path="/search"
           >
+            <NavigationBar />
             <Search />
           </ProtectedRoute>
 
