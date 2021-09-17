@@ -42,7 +42,7 @@ function App() {
     <Router>
       <div>
         <Switch>
-          {user.id && <NavigationBar />}
+          {/* {user.id && <NavigationBar />} */}
 
           {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
           <Redirect exact from="/" to="/home" />
@@ -52,7 +52,7 @@ function App() {
             exact
             path="/cart"
           >
-            {/* <NavigationBar /> */}
+            <NavigationBar />
             <Cart />
           </ProtectedRoute>
 
@@ -65,7 +65,7 @@ function App() {
             exact
             path="/user"
           >
-            {/* <NavigationBar /> */}
+            <NavigationBar />
             <UserPage />
           </ProtectedRoute>
 
@@ -74,7 +74,7 @@ function App() {
             exact
             path="/favorites"
           >
-            {/* <NavigationBar /> */}
+            <NavigationBar />
             <Favorites />
           </ProtectedRoute>
 
@@ -83,7 +83,7 @@ function App() {
             exact
             path="/detail"
           >
-            {/* <NavigationBar /> */}
+            <NavigationBar />
             <DetailView />
           </ProtectedRoute>
 
@@ -91,7 +91,7 @@ function App() {
             exact
             path="/search"
           >
-            {/* <NavigationBar /> */}
+            <NavigationBar />
             <Search />
           </ProtectedRoute>
 

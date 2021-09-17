@@ -13,7 +13,7 @@ function Search() {
 
     // just returns the recipe cards
     return (
-        <>
+        <center>
         {/* // <Container>
         //     <Row className="justify-content-md-center"> */}
             <h1>Showing results for: {searchTerm}</h1>
@@ -22,7 +22,7 @@ function Search() {
             })}
             {/* </Row>
         </Container> */}
-        </>
+        </center>
     );
 }; 
 
