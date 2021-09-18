@@ -4,6 +4,7 @@ const pool = require('../modules/pool');
 const router = express.Router()
 const axios = require('axios');
 const addCurrentAndFavorites = require('../modules/addProps');
+const cacheAxios = require('./cacheAxios');
 
 router.get('/all', rejectUnauthenticated, (req, res) => {
     const sqlQuery = `SELECT ARRAY_AGG("recipe_id") AS "favorites" FROM "user_recipes"
@@ -19,7 +20,7 @@ router.get('/all', rejectUnauthenticated, (req, res) => {
         
         // api call here:
         if (!!dbResponse.rows[0].favorites) {
-            axios({
+            cacheAxios({
                 method: 'GET',
                 url: 'https://api.spoonacular.com/recipes/informationBulk',
                 params: {

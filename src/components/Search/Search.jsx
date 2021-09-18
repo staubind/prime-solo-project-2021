@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import RecipeCard from '../RecipeCard/RecipeCard';
 import { Container, Row } from 'react-bootstrap';
 // uses the navbar search utility
-
+import RecipeReviewCard from '../RecipeCard/RecipeCard2'
 function Search() {
     const searchResults = useSelector(store => store.search);     
     const searchTerm = useSelector(store => store.searchTermReducer);
@@ -18,10 +18,11 @@ function Search() {
         //     <Row className="justify-content-md-center"> */}
             <h1>Showing results for: {searchTerm}</h1>
             {searchResults.map(recipe => {
-                return <RecipeCard key={recipe.id} recipe={recipe}/>
+                return <div><RecipeReviewCard key={recipe.id} recipe={recipe}/><br></br></div>
             })}
             {/* </Row>
         </Container> */}
+            
         </center>
     );
 }; 
