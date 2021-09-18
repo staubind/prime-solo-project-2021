@@ -1,11 +1,11 @@
 import { takeLatest, put } from "@redux-saga/core/effects";
 import axios from "axios";
-import cacheAxios from "./cacheAxios";
+// import cacheAxios from "./cacheAxios";
 
 function* fetchCart(action) {
     try {
         // axios call to get all cart items for that user
-        const results = yield cacheAxios({
+        const results = yield axios({
             method: 'GET',
             url: 'api/cart',
             params: {

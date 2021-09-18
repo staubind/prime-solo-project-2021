@@ -4,12 +4,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import {useState} from 'react';
 import { useHistory } from 'react-router';
 import {LinkContainer} from 'react-router-bootstrap';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
+import SearchIcon from '@mui/icons-material/Search';
 
 function NavigationBar() {
     const dispatch = useDispatch();
     const history = useHistory();
     const user = useSelector((store) => store.user);
-
+    const cart = useSelector((store) => store.cartReducer)
     const [searchTerm, setSearchTerm] = useState('');
 
     const search = (event) => {
@@ -47,12 +50,12 @@ function NavigationBar() {
               </LinkContainer>
               {/* if nobody is logged in, we should redirect to login/register view */}
               <LinkContainer to="/cart">
-                  <Nav.Link>Cart</Nav.Link>
+                  <Nav.Link>{cart.length > 0 ? <ShoppingCartIcon /> : <ShoppingCartOutlinedIcon />} Cart</Nav.Link>
               </LinkContainer>
 
               {/* need links for login/logout */}
               <LinkContainer to="/search">
-                  <Nav.Link>Login/Logout</Nav.Link>
+                  <Nav.Link onClick={() => dispatch({ type: 'LOGOUT' })}>Logout</Nav.Link>
               </LinkContainer>
             </Nav>
             <Form className="d-flex" onSubmit={search}> 
@@ -64,7 +67,7 @@ function NavigationBar() {
                 value={searchTerm}
                 onChange={(event) => {setSearchTerm(event.target.value)}}
               />
-              <Button type="submit" variant="outline-success">Search</Button>
+              <Button type="submit" variant="outline-success"><SearchIcon /></Button>
             </Form>
           </Navbar.Collapse>
         </Navbar>

@@ -6,6 +6,10 @@ import ServingsModal from '../ServingsModal/ServingsModal';
 import { useState } from 'react';
 import FavoritesModal from '../FavoritesModal/FavoritesModal';
 import { useHistory } from 'react-router-dom';
+import AddShoppingCartOutlinedIcon from '@mui/icons-material/AddShoppingCartOutlined';
+import RemoveShoppingCartOutlinedIcon from '@mui/icons-material/RemoveShoppingCartOutlined';
+import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
+import FavoriteOutlinedIcon from '@mui/icons-material/FavoriteOutlined';
 
 function RecipeCard({recipe}) {
     const dispatch = useDispatch();
@@ -54,9 +58,9 @@ function RecipeCard({recipe}) {
                   {recipe.title}
                 </Card.Text>
                 {recipe.isCurrent ?
-                  <Button variant="primary" onClick={() => {changeCart('remove')}}>Remove from Cart</Button>
+                  <Button variant="primary" onClick={() => {changeCart('remove')}}><RemoveShoppingCartOutlinedIcon /></Button>
                 :
-                <Button variant="primary" onClick={() => {setCartModalShow(true)}}>Add to Cart</Button>
+                <Button variant="primary" onClick={() => {setCartModalShow(true)}}><AddShoppingCartOutlinedIcon /></Button>
                 }
                 <ServingsModal 
                   show={cartModalShow} 
@@ -66,9 +70,9 @@ function RecipeCard({recipe}) {
                   setservings={setServings}
                 />
                 {recipe.isFavorite ?
-                  <Button variant="primary" onClick={() => {setFavoriteModalShow(true)}}>Remove from Favorites</Button>
+                  <Button variant="primary" onClick={() => {setFavoriteModalShow(true)}}><FavoriteOutlinedIcon /></Button>
                 :
-                <Button variant="primary" onClick={() => {changeFavorite()}}>Add to Favorites</Button>
+                <Button variant="primary" onClick={() => {changeFavorite()}}><FavoriteBorderOutlinedIcon /></Button>
                 }
                 <FavoritesModal 
                   show={favoriteModalShow} 

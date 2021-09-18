@@ -3,22 +3,22 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
 const pool = require('../modules/pool');
 const axios = require('axios');
 const addCurrentAndFavorites = require('../modules/addProps');
-
+const cacheAxios = require('./cacheAxios');
 const router = express.Router();
 
 
-// ------------ cache axios stuff
-// axios imported above
-const setupCache = require('axios-cache-adapter').setupCache;
+// // ------------ cache axios stuff
+// // axios imported above
+// const setupCache = require('axios-cache-adapter').setupCache;
 
-const cache = setupCache({
-    maxAge: 15 * 60 * 1000
-})
+// const cache = setupCache({
+//     maxAge: 15 * 60 * 1000
+// })
 
-const cacheAxios = axios.create({
-    adapter: cache.adapter
-  })
-// ------------ cache axios stuff - END
+// const cacheAxios = axios.create({
+//     adapter: cache.adapter
+//   })
+// // ------------ cache axios stuff - END
 
 
 router.post('/', rejectUnauthenticated, (req, res) => {

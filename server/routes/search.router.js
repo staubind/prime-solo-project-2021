@@ -3,11 +3,12 @@ const pool = require('../modules/pool');
 const router = express.Router();
 const axios = require('axios');
 const addCurrentAndFavorites = require('../modules/addProps')
+const cacheAxios = require('./cacheAxios');
 
 router.get('/', (req, res) => {
     // console.log('the request term is: ', req.query.searchTerm);
   // compose params for api call.
-  axios({
+  cacheAxios({
     method: 'GET',
     url: 'https://api.spoonacular.com/recipes/complexSearch', 
     params: {
