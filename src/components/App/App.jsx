@@ -21,6 +21,7 @@ import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import Favorites from '../Favorites/Favorites';
 import NavigationBar from '../Navbar/Navbar';
+import PrimarySearchAppBar from '../Navbar/Navbar2'
 import Cart from '../Cart/Cart';
 
 import './App.css';

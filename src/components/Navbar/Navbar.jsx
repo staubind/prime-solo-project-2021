@@ -33,35 +33,15 @@ function NavigationBar() {
 
     return (
         <>
+        {/* insert another bar that has the page title and the GG symbol? */}
+        {/* top bar has search and GG */}
         <Navbar bg="light" expand="lg" sticky="top">
-          <LinkContainer to="/home">
+        <LinkContainer to="/home">
+          {/* Want this to be moved off the left side of the page just a bit */}
             <Navbar.Brand>GroceryGuru</Navbar.Brand>
           </LinkContainer>
-          <Navbar.Toggle aria-controls="navbarScroll" />
-          <Navbar.Collapse id="navbarScroll">
-            <Nav
-              className="mr-auto my-2 my-lg-0"
-              style={{ maxHeight: '100px' }}
-              navbarScroll
-            >
-              {/* if nobody is logged in, we should redirect to login/register view */}
-              <LinkContainer to="/favorites">
-                  <Nav.Link>{favorites.length > 0 ? <FavoriteOutlinedIcon /> : <FavoriteBorderOutlinedIcon />}Favorites</Nav.Link>
-              </LinkContainer>
-              {/* if nobody is logged in, we should redirect to login/register view */}
-              <LinkContainer to="/search">
-                <Nav.Link>Search</Nav.Link>
-              </LinkContainer>
-              {/* if nobody is logged in, we should redirect to login/register view */}
-              <LinkContainer to="/cart">
-                  <Nav.Link>{cart.length > 0 ? <ShoppingCartIcon /> : <ShoppingCartOutlinedIcon />} Cart</Nav.Link>
-              </LinkContainer>
 
-              {/* need links for login/logout */}
-              <LinkContainer to="/search">
-                  <Nav.Link onClick={() => dispatch({ type: 'LOGOUT' })}>Logout</Nav.Link>
-              </LinkContainer>
-            </Nav>
+            <Nav className='m-auto'>
             <Form className="d-flex" onSubmit={search}> 
               <FormControl
                 type="search"
@@ -73,7 +53,36 @@ function NavigationBar() {
               />
               <IconButton type="submit" variant="outline-success"><SearchIcon /></IconButton>
             </Form>
-          </Navbar.Collapse>
+            </Nav>
+        </Navbar>
+
+        {/* bottom has the links */}
+
+        <Navbar bg="light" expand="lg" fixed="bottom">
+            <Nav
+              className="mr-auto my-2 my-lg-0"
+              style={{ maxHeight: '100px' }}
+            >
+              {/* if nobody is logged in, we should redirect to login/register view */}
+              <LinkContainer to="/favorites">
+                  <Nav.Link>{favorites.length > 0 ? <FavoriteOutlinedIcon /> : <FavoriteBorderOutlinedIcon />} Favorites</Nav.Link>
+              </LinkContainer>
+              {/* if nobody is logged in, we should redirect to login/register view */}
+              <LinkContainer to="/search">
+                <Nav.Link><SearchIcon /> Search</Nav.Link>
+              </LinkContainer>
+              {/* if nobody is logged in, we should redirect to login/register view */}
+              <LinkContainer to="/cart">
+                  <Nav.Link>{cart.length > 0 ? <ShoppingCartIcon /> : <ShoppingCartOutlinedIcon />} Cart</Nav.Link>
+              </LinkContainer>
+
+              {/* need links for login/logout */}
+              <LinkContainer to="/search">
+                  <Nav.Link onClick={() => dispatch({ type: 'LOGOUT' })}>Logout</Nav.Link>
+              </LinkContainer>
+
+              
+            </Nav>
         </Navbar>
         </>
     );
