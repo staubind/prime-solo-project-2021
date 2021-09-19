@@ -8,12 +8,15 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import SearchIcon from '@mui/icons-material/Search';
 import IconButton from '@mui/material/IconButton';
+import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
+import FavoriteOutlinedIcon from '@mui/icons-material/FavoriteOutlined';import ShareIcon from '@mui/icons-material/Share';
 
 function NavigationBar() {
     const dispatch = useDispatch();
     const history = useHistory();
     const user = useSelector((store) => store.user);
     const cart = useSelector((store) => store.cartReducer)
+    const favorites = useSelector((store) => store.favoriteReducer)
     const [searchTerm, setSearchTerm] = useState('');
 
     const search = (event) => {
@@ -43,7 +46,7 @@ function NavigationBar() {
             >
               {/* if nobody is logged in, we should redirect to login/register view */}
               <LinkContainer to="/favorites">
-                  <Nav.Link>Favorites</Nav.Link>
+                  <Nav.Link>{favorites.length > 0 ? <FavoriteOutlinedIcon /> : <FavoriteBorderOutlinedIcon />}Favorites</Nav.Link>
               </LinkContainer>
               {/* if nobody is logged in, we should redirect to login/register view */}
               <LinkContainer to="/search">
