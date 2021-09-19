@@ -7,6 +7,7 @@ import {LinkContainer} from 'react-router-bootstrap';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import SearchIcon from '@mui/icons-material/Search';
+import IconButton from '@mui/material/IconButton';
 
 function NavigationBar() {
     const dispatch = useDispatch();
@@ -67,7 +68,7 @@ function NavigationBar() {
                 value={searchTerm}
                 onChange={(event) => {setSearchTerm(event.target.value)}}
               />
-              <Button type="submit" variant="outline-success"><SearchIcon /></Button>
+              <IconButton type="submit" variant="outline-success"><SearchIcon /></IconButton>
             </Form>
           </Navbar.Collapse>
         </Navbar>
