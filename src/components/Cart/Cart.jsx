@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import RecipeCard from '../RecipeCard/RecipeCard';
+import RecipeCard2 from '../RecipeCard/RecipeCard2';
 import { Tabs, Tab, Container } from "react-bootstrap";
 import IngredientList from "../IngredientList/IngredientList";
 
@@ -39,9 +39,11 @@ function Cart() {
         <Container>
             <Tabs defaultActiveKey="profile" id="uncontrolled-tab-example" className="mb-3">
                 <Tab eventKey="home" title="Recipes">
+                    <center>
                     {cart.map(recipe => {
-                        return <RecipeCard key={recipe.id} recipe={recipe}/>
+                        return <RecipeCard2 key={recipe.id} recipe={recipe}/>
                     })}
+                    </center>
                 </Tab>
                 <Tab eventKey="profile" title="Grocery List">
                     <IngredientList ingredients={makeGroceryList(cart)}/>

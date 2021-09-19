@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import RecipeCard from '../RecipeCard/RecipeCard';
+import RecipeCard2 from '../RecipeCard/RecipeCard2';
 
 function Favorites() {
     const dispatch = useDispatch();
@@ -25,11 +25,11 @@ function Favorites() {
 
     // display the list of recipe cards in return
     return (
-        <>
+        <center>
             {favorites.map(recipe => {
-                return <RecipeCard key={recipe.id} recipe={recipe}/>
+                return <RecipeCard2 key={recipe.id} recipe={recipe}/>
             })}       
-        </>
+        </center>
     );
 }
 
