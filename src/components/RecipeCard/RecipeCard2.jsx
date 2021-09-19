@@ -24,8 +24,9 @@ import RemoveShoppingCartOutlinedIcon from '@mui/icons-material/RemoveShoppingCa
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import FavoriteOutlinedIcon from '@mui/icons-material/FavoriteOutlined';import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
-
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
 
 
 const ExpandMore = styled((props) => {
@@ -78,12 +79,12 @@ const changeFavorite = () => {
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-            R
+            GG
           </Avatar>
         }
         action={
           <IconButton aria-label="settings">
-            <MoreVertIcon />
+            {/* <MoreVertIcon /> */}
           </IconButton>
         }
         title={recipe.title}
@@ -96,12 +97,15 @@ const changeFavorite = () => {
         alt="Paella dish"
       />
       <CardContent>
+        {/* This will be where we put the cooking time readiness */}
         <Typography variant="body2" color="text.secondary">
           This impressive paella is a perfect party dish and a fun meal to cook
           together with your guests. Add 1 cup of frozen peas along with the mussels,
           if you like.
+          {/* Ready in: {recipe.readyInMinutes}  other info??? */}
         </Typography>
       </CardContent>
+      
       <CardActions disableSpacing>
 
         {recipe.isCurrent ? 
@@ -160,6 +164,23 @@ const changeFavorite = () => {
             Heat 1/2 cup of the broth in a pot until simmering, add saffron and set
             aside for 10 minutes.
           </Typography>
+
+          <Accordion>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel1a-content"
+          id="panel1a-header"
+        >
+          <Typography>Instructions</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Typography>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+            malesuada lacus ex, sit amet blandit leo lobortis eget.
+          </Typography>
+        </AccordionDetails>
+      </Accordion>
+
           <Typography paragraph>
             Heat oil in a (14- to 16-inch) paella pan or a large, deep skillet over
             medium-high heat. Add chicken, shrimp and chorizo, and cook, stirring
