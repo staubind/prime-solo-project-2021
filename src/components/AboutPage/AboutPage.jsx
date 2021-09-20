@@ -24,11 +24,11 @@ function AboutPage() {
             </ul>
           <h2>Largest Challenge</h2>
           <ul style={{listStyleType: "none"}}>
-            <li>Synchronizing the search results, the cart, and the favorites page</li>
+            <li>Working around tight limitations with Spoonacular's API</li>
           </ul>
           <h2>What's Next?</h2>
           <ul style={{listStyleType: "none"}}>
-            <li>Add advanced search and user settings and nutritional informaiton</li>
+            <li>Add advanced search and user settings and nutritional information</li>
           </ul>
           <h2>A Special Thanks To</h2>
           <ul style={{listStyleType: "none"}}>

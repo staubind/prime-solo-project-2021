@@ -37,7 +37,7 @@ function ServingsModal(props) {
 
         </Modal.Body>
         <Modal.Footer>
-        <Button variant="secondary" onClick={props.onHide}>Close</Button>
+        <Button variant="outline-secondary" onClick={props.onHide}>Close</Button>
         <Button variant="primary" onClick={() => {
             props.confirm() // react complains about it being in camelcase same for setservings above
             props.onHide()
