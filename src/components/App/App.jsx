@@ -8,7 +8,6 @@ import {
 
 import { useDispatch, useSelector } from 'react-redux';
 
-import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
 
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
@@ -46,7 +45,7 @@ function App() {
           {/* {user.id && <NavigationBar />} */}
 
           {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
-          <Redirect exact from="/" to="/home" />
+          <Redirect exact from="/" to="/login" />
 
           {/* Visiting localhost:3000/about will show the about page. */}
           <ProtectedRoute
@@ -104,7 +103,8 @@ function App() {
             {user.id ?
               // If the user is already logged in, 
               // redirect to the /user page
-              <Redirect to="/user" />
+                // redirect after login
+              <Redirect to="/search" />
               :
               // Otherwise, show the login page
               <LoginPage />
@@ -118,7 +118,8 @@ function App() {
             {user.id ?
               // If the user is already logged in, 
               // redirect them to the /user page
-              <Redirect to="/user" />
+                // redirect after login
+              <Redirect to="/search" />
               :
               // Otherwise, show the registration page
               <RegisterPage />
@@ -132,7 +133,8 @@ function App() {
             {user.id ?
               // If the user is already logged in, 
               // redirect them to the /user page
-              <Redirect to="/user" />
+                // redirect after login
+              <Redirect to="/search" /> 
               :
               // Otherwise, show the Landing page
               <LandingPage />

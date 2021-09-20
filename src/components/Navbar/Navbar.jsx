@@ -10,6 +10,11 @@ import SearchIcon from '@mui/icons-material/Search';
 import IconButton from '@mui/material/IconButton';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import FavoriteOutlinedIcon from '@mui/icons-material/FavoriteOutlined';import ShareIcon from '@mui/icons-material/Share';
+import SettingsIcon from '@mui/icons-material/Settings';
+import Col from 'react-bootstrap/Col'
+import Row from 'react-bootstrap/Row'
+import DirectionsRunIcon from '@mui/icons-material/DirectionsRun';
+import InfoIcon from '@mui/icons-material/Info';
 
 function NavigationBar() {
     const dispatch = useDispatch();
@@ -26,7 +31,7 @@ function NavigationBar() {
             payload: searchTerm
         })
         // send the search term to the display page
-        setSearchTerm('');
+        // setSearchTerm('');
         // redirect to the search page
         history.push('/search');
     }
@@ -57,33 +62,46 @@ function NavigationBar() {
         </Navbar>
 
         {/* bottom has the links */}
+            <div style={{bottom: "0", position: "fixed", width: "100%", background: "white", height: "125"}}>
+            <Nav fixed="bottom" fill justify variant="tabs">
+              {/* if nobody is logged in, we should redirect to login/register view */}
+              <Nav.Item>
+              <LinkContainer to="/favorites" style={{color: "grey"}}>
+                <Nav.Link>{favorites.length > 0 ? <FavoriteOutlinedIcon /> : <FavoriteBorderOutlinedIcon />} </Nav.Link>
+              </LinkContainer>
+              </Nav.Item>
 
-        <Navbar bg="light" expand="lg" fixed="bottom">
-            <Nav
-              className="mr-auto my-2 my-lg-0"
-              style={{ maxHeight: '100px' }}
-            >
-              {/* if nobody is logged in, we should redirect to login/register view */}
-              <LinkContainer to="/favorites">
-                  <Nav.Link>{favorites.length > 0 ? <FavoriteOutlinedIcon /> : <FavoriteBorderOutlinedIcon />} Favorites</Nav.Link>
+                {/* if nobody is logged in, we should redirect to login/register view */}
+              <Nav.Item>
+              <LinkContainer to="/search" style={{color: "grey"}}>
+                <Nav.Link><SearchIcon /> </Nav.Link>
               </LinkContainer>
+              </Nav.Item>
+
               {/* if nobody is logged in, we should redirect to login/register view */}
-              <LinkContainer to="/search">
-                <Nav.Link><SearchIcon /> Search</Nav.Link>
+              <Nav.Item>
+              <LinkContainer to="/cart" style={{color: "grey"}}>
+                <Nav.Link>{cart.length > 0 ? <ShoppingCartIcon /> : <ShoppingCartOutlinedIcon />} </Nav.Link>
               </LinkContainer>
-              {/* if nobody is logged in, we should redirect to login/register view */}
-              <LinkContainer to="/cart">
-                  <Nav.Link>{cart.length > 0 ? <ShoppingCartIcon /> : <ShoppingCartOutlinedIcon />} Cart</Nav.Link>
-              </LinkContainer>
+              </Nav.Item>
 
               {/* need links for login/logout */}
-              <LinkContainer to="/search">
-                  <Nav.Link onClick={() => dispatch({ type: 'LOGOUT' })}>Logout</Nav.Link>
-              </LinkContainer>
-
-              
-            </Nav>
-        </Navbar>
+              <Nav.Item>
+              <NavDropdown title={<SettingsIcon />} id="nav-dropdown">
+                <NavDropdown.Item eventKey="4.1">
+                <LinkContainer to="/search" style={{color: "grey"}}>
+                  <Nav.Link onClick={() => dispatch({ type: 'LOGOUT' })}><DirectionsRunIcon />Logout</Nav.Link>
+                </LinkContainer>
+                </NavDropdown.Item>
+                <NavDropdown.Item eventKey="4.2">
+                <LinkContainer to="/search" style={{color: "grey"}}>
+                  <Nav.Link onClick={() => dispatch({ type: 'LOGOUT' })}><InfoIcon />About</Nav.Link>
+                </LinkContainer>
+                </NavDropdown.Item>
+              </NavDropdown>
+              </Nav.Item>
+              </Nav>
+              </div>
         </>
     );
 }

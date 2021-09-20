@@ -27,7 +27,7 @@ function Favorites() {
     return (
         <center>
             {favorites.map(recipe => {
-                return <RecipeCard2 key={recipe.id} recipe={recipe}/>
+                return <div><RecipeCard2 key={recipe.id} recipe={recipe}/><br></br></div>
             })}       
         </center>
     );
