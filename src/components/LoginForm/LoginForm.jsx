@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import {useSelector} from 'react-redux';
+import Button from 'react-bootstrap/Button';
 
 function LoginForm() {
   const [username, setUsername] = useState('');
@@ -57,7 +58,7 @@ function LoginForm() {
         </label>
       </div>
       <div>
-        <input className="btn" type="submit" name="submit" value="Log In" />
+        <Button className="btn" type="submit" name="submit" value="Log In">Login</Button>
       </div>
     </form>
   );

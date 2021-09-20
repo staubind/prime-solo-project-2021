@@ -7,6 +7,16 @@ function LoginPage() {
 
   return (
     <div>
+      <br />
+      <br />
+      <br />
+      <h1 style={{marginLeft: "100px"}}>Welcome to</h1>
+      <center>
+      <h1 style={{color: "blue", fontSize: "48pt"}}>Grocery Guru</h1>
+      </center>
+      <br />
+      <br />
+      <br />
       <LoginForm />
 
       <center>

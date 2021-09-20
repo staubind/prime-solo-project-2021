@@ -16,7 +16,9 @@ function Search() {
         <center>
         {/* // <Container>
         //     <Row className="justify-content-md-center"> */}
-            <h1>Results for: {searchTerm}</h1>
+            <br></br>
+            { searchTerm ? <h1>{searchTerm}</h1> : <h1>Try Searching for new recipes!</h1>}
+            <hr></hr>
             {searchResults.map(recipe => {
                 return <div><RecipeReviewCard key={recipe.id} recipe={recipe}/><br></br></div>
             })}

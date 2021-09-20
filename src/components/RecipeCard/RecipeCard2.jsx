@@ -187,13 +187,13 @@ const changeFavorite = () => {
         </AccordionSummary>
         <AccordionDetails>
           <Typography>
-          <ul>
+          <ul style={{listStyleType: "none"}}>
                     {recipe.analyzedInstructions.map((majorStep, i) => {
                         return (
                             <li>
-                                <h1>Part {i+1}</h1>
+                                <h1>Part {i+1}</h1><hr></hr>
                                 <ol>
-                                    {majorStep.steps.map(step => <li>{step.step}</li>)}
+                                    {majorStep.steps.map(step => <li>{step.step}<hr /></li>)}
                                 </ol>
                             </li>
                         );
@@ -213,7 +213,7 @@ const changeFavorite = () => {
         </AccordionSummary>
         <AccordionDetails>
           <Typography>
-                <ul>
+                <ul style={{listStyleType: "none"}}>
                     {recipe.extendedIngredients.map(ingredient => <li>{ingredient.name}</li>)}
                 </ul>
           </Typography>
