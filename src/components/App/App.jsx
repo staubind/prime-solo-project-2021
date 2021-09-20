@@ -56,13 +56,13 @@ function App() {
             <Cart />
           </ProtectedRoute>
 
-          <ProtectedRoute
-            exact
-            path="/about"
+          <Route
+          exact
+          path="/about"
           >
             <NavigationBar />
             <AboutPage />
-          </ProtectedRoute>
+          </Route>
 
           {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/user will show the UserPage if the user is logged in.

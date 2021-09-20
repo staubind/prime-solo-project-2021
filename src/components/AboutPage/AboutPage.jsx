@@ -7,10 +7,10 @@ import React from 'react';
 
 function AboutPage() {
   return (
-
-        <center>
+      <center>
+        <container>
           <h2>Tech Stack</h2>
-            <ul style="list-style-type:none;">
+            <ul style={{listStyleType: "none"}}>
               <li>HTML</li>
               <li>CSS</li>
               <li>Bootstrap</li>
@@ -23,20 +23,20 @@ function AboutPage() {
               <li>Spoonacular's API</li>
             </ul>
           <h2>Largest Challenge</h2>
-          <ul style="list-style-type:none;">
+          <ul style={{listStyleType: "none"}}>
             <li>Synchronizing the search results, the cart, and the favorites page</li>
           </ul>
           <h2>What's Next?</h2>
-          <ul style="list-style-type:none;">
+          <ul style={{listStyleType: "none"}}>
             <li>Add advanced search and user settings and nutritional informaiton</li>
           </ul>
           <h2>A Special Thanks To</h2>
-          <ul style="list-style-type:none;">
+          <ul style={{listStyleType: "none"}}>
             <li>Edan, Matt, and the staff of Prime Digital Academy</li>
             <li>My Cohort</li>
-            <li>My girlfriend Cate</li>
+            <li>My girlfriend, Cate</li>
           </ul>
-
+        </container>
         </center>
 
   );
