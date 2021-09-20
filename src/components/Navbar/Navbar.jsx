@@ -87,15 +87,15 @@ function NavigationBar() {
 
               {/* need links for login/logout */}
               <Nav.Item>
-              <NavDropdown title={<SettingsIcon />} id="nav-dropdown">
+              <NavDropdown title={<SettingsIcon />} id="nav-dropdown" style={{color: "grey"}}>
                 <NavDropdown.Item eventKey="4.1">
                 <LinkContainer to="/search" style={{color: "grey"}}>
-                  <Nav.Link onClick={() => dispatch({ type: 'LOGOUT' })}><DirectionsRunIcon />Logout</Nav.Link>
+                  <Nav.Link onClick={() => dispatch({ type: 'LOGOUT' })}><DirectionsRunIcon /> Logout</Nav.Link>
                 </LinkContainer>
                 </NavDropdown.Item>
                 <NavDropdown.Item eventKey="4.2">
-                <LinkContainer to="/search" style={{color: "grey"}}>
-                  <Nav.Link onClick={() => dispatch({ type: 'LOGOUT' })}><InfoIcon />About</Nav.Link>
+                <LinkContainer to="/about" style={{color: "grey"}}>
+                  <Nav.Link><InfoIcon /> About</Nav.Link>
                 </LinkContainer>
                 </NavDropdown.Item>
               </NavDropdown>
