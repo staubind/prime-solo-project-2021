@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import RecipeCard2 from '../RecipeCard/RecipeCard2';
-import { Tabs, Tab, Container } from "react-bootstrap";
+import { Tabs, Tab, Container, Nav } from "react-bootstrap";
 import IngredientList from "../IngredientList/IngredientList";
 
 // this gathers the ingredients for the recipe display
@@ -47,6 +47,8 @@ function Cart() {
                 </Tab>
                 <Tab eventKey="profile" title="Grocery List">
                     <IngredientList ingredients={makeGroceryList(cart)}/>
+                </Tab>
+                <Tab eventKey="disabled" title="Nutrition">
                 </Tab>
             </Tabs>        
         </Container>

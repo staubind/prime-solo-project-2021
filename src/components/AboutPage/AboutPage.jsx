@@ -8,7 +8,7 @@ import React from 'react';
 function AboutPage() {
   return (
 
-        <center>
+        <div>
           <h2>Tech Stack</h2>
             <ul style="list-style-type:none;">
               <li>HTML</li>
@@ -37,7 +37,7 @@ function AboutPage() {
             <li>My girlfriend Cate</li>
           </ul>
 
-        </center>
+        </div>
 
   );
 }
