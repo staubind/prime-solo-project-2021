@@ -49,6 +49,11 @@ function Cart() {
                     <IngredientList ingredients={makeGroceryList(cart)}/>
                 </Tab>
                 <Tab eventKey="disabled" title="Nutrition">
+                    <center>
+                    <h1>
+                        Under Development
+                    </h1>
+                    </center>
                 </Tab>
             </Tabs>        
         </Container>
