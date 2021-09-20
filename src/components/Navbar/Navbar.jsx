@@ -8,12 +8,20 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import SearchIcon from '@mui/icons-material/Search';
 import IconButton from '@mui/material/IconButton';
+import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
+import FavoriteOutlinedIcon from '@mui/icons-material/FavoriteOutlined';import ShareIcon from '@mui/icons-material/Share';
+import SettingsIcon from '@mui/icons-material/Settings';
+import Col from 'react-bootstrap/Col'
+import Row from 'react-bootstrap/Row'
+import DirectionsRunIcon from '@mui/icons-material/DirectionsRun';
+import InfoIcon from '@mui/icons-material/Info';
 
 function NavigationBar() {
     const dispatch = useDispatch();
     const history = useHistory();
     const user = useSelector((store) => store.user);
     const cart = useSelector((store) => store.cartReducer)
+    const favorites = useSelector((store) => store.favoriteReducer)
     const [searchTerm, setSearchTerm] = useState('');
 
     const search = (event) => {
@@ -23,42 +31,22 @@ function NavigationBar() {
             payload: searchTerm
         })
         // send the search term to the display page
-        setSearchTerm('');
+        // setSearchTerm('');
         // redirect to the search page
         history.push('/search');
     }
 
     return (
         <>
+        {/* insert another bar that has the page title and the GG symbol? */}
+        {/* top bar has search and GG */}
         <Navbar bg="light" expand="lg" sticky="top">
-          <LinkContainer to="/home">
+        <LinkContainer to="/home">
+          {/* Want this to be moved off the left side of the page just a bit */}
             <Navbar.Brand>GroceryGuru</Navbar.Brand>
           </LinkContainer>
-          <Navbar.Toggle aria-controls="navbarScroll" />
-          <Navbar.Collapse id="navbarScroll">
-            <Nav
-              className="mr-auto my-2 my-lg-0"
-              style={{ maxHeight: '100px' }}
-              navbarScroll
-            >
-              {/* if nobody is logged in, we should redirect to login/register view */}
-              <LinkContainer to="/favorites">
-                  <Nav.Link>Favorites</Nav.Link>
-              </LinkContainer>
-              {/* if nobody is logged in, we should redirect to login/register view */}
-              <LinkContainer to="/search">
-                <Nav.Link>Search</Nav.Link>
-              </LinkContainer>
-              {/* if nobody is logged in, we should redirect to login/register view */}
-              <LinkContainer to="/cart">
-                  <Nav.Link>{cart.length > 0 ? <ShoppingCartIcon /> : <ShoppingCartOutlinedIcon />} Cart</Nav.Link>
-              </LinkContainer>
 
-              {/* need links for login/logout */}
-              <LinkContainer to="/search">
-                  <Nav.Link onClick={() => dispatch({ type: 'LOGOUT' })}>Logout</Nav.Link>
-              </LinkContainer>
-            </Nav>
+            <Nav className='m-auto'>
             <Form className="d-flex" onSubmit={search}> 
               <FormControl
                 type="search"
@@ -70,8 +58,50 @@ function NavigationBar() {
               />
               <IconButton type="submit" variant="outline-success"><SearchIcon /></IconButton>
             </Form>
-          </Navbar.Collapse>
+            </Nav>
         </Navbar>
+
+        {/* bottom has the links */}
+            <div style={{bottom: "0", position: "fixed", width: "100%", background: "white", height: "125"}}>
+            <Nav fixed="bottom" fill justify variant="tabs">
+              {/* if nobody is logged in, we should redirect to login/register view */}
+              <Nav.Item>
+              <LinkContainer to="/favorites" style={{color: "grey"}}>
+                <Nav.Link>{favorites.length > 0 ? <FavoriteOutlinedIcon /> : <FavoriteBorderOutlinedIcon />} </Nav.Link>
+              </LinkContainer>
+              </Nav.Item>
+
+                {/* if nobody is logged in, we should redirect to login/register view */}
+              <Nav.Item>
+              <LinkContainer to="/search" style={{color: "grey"}}>
+                <Nav.Link><SearchIcon /> </Nav.Link>
+              </LinkContainer>
+              </Nav.Item>
+
+              {/* if nobody is logged in, we should redirect to login/register view */}
+              <Nav.Item>
+              <LinkContainer to="/cart" style={{color: "grey"}}>
+                <Nav.Link>{cart.length > 0 ? <ShoppingCartIcon /> : <ShoppingCartOutlinedIcon />} </Nav.Link>
+              </LinkContainer>
+              </Nav.Item>
+
+              {/* need links for login/logout */}
+              <Nav.Item>
+              <NavDropdown title={<SettingsIcon />} id="nav-dropdown" style={{color: "grey"}}>
+                <NavDropdown.Item eventKey="4.1">
+                <LinkContainer to="/search" style={{color: "grey"}}>
+                  <Nav.Link onClick={() => dispatch({ type: 'LOGOUT' })}><DirectionsRunIcon /> Logout</Nav.Link>
+                </LinkContainer>
+                </NavDropdown.Item>
+                <NavDropdown.Item eventKey="4.2">
+                <LinkContainer to="/about" style={{color: "grey"}}>
+                  <Nav.Link><InfoIcon /> About</Nav.Link>
+                </LinkContainer>
+                </NavDropdown.Item>
+              </NavDropdown>
+              </Nav.Item>
+              </Nav>
+              </div>
         </>
     );
 }

@@ -41,7 +41,7 @@ function Cart() {
                 <Tab eventKey="home" title="Recipes">
                     <center>
                     {cart.map(recipe => {
-                        return <RecipeCard2 key={recipe.id} recipe={recipe}/>
+                        return <div><RecipeCard2 key={recipe.id} recipe={recipe}/><br></br></div>
                     })}
                     </center>
                 </Tab>

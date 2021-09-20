@@ -8,7 +8,6 @@ import {
 
 import { useDispatch, useSelector } from 'react-redux';
 
-import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
 
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
@@ -21,6 +20,7 @@ import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import Favorites from '../Favorites/Favorites';
 import NavigationBar from '../Navbar/Navbar';
+import PrimarySearchAppBar from '../Navbar/Navbar2'
 import Cart from '../Cart/Cart';
 
 import './App.css';
@@ -45,7 +45,7 @@ function App() {
           {/* {user.id && <NavigationBar />} */}
 
           {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
-          <Redirect exact from="/" to="/home" />
+          <Redirect exact from="/" to="/login" />
 
           {/* Visiting localhost:3000/about will show the about page. */}
           <ProtectedRoute
@@ -54,6 +54,14 @@ function App() {
           >
             <NavigationBar />
             <Cart />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            exact
+            path="/about"
+          >
+            <NavigationBar />
+            <AboutPage />
           </ProtectedRoute>
 
           {/* For protected routes, the view could show one of several things on the same route.
@@ -103,7 +111,8 @@ function App() {
             {user.id ?
               // If the user is already logged in, 
               // redirect to the /user page
-              <Redirect to="/user" />
+                // redirect after login
+              <Redirect to="/search" />
               :
               // Otherwise, show the login page
               <LoginPage />
@@ -117,7 +126,8 @@ function App() {
             {user.id ?
               // If the user is already logged in, 
               // redirect them to the /user page
-              <Redirect to="/user" />
+                // redirect after login
+              <Redirect to="/search" />
               :
               // Otherwise, show the registration page
               <RegisterPage />
@@ -131,7 +141,8 @@ function App() {
             {user.id ?
               // If the user is already logged in, 
               // redirect them to the /user page
-              <Redirect to="/user" />
+                // redirect after login
+              <Redirect to="/search" /> 
               :
               // Otherwise, show the Landing page
               <LandingPage />
