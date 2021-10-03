@@ -3,7 +3,8 @@ import IngredientSection from "../IngredientSection/IngredientSection";
 function IngredientList({ingredients}) {
     return (
         <>
-        {/* // for each aisle: */}
+        {/* // for each aisle: 
+            make a list of ingredientSection components, which are themselves lists of ingredients*/}
         {Object.keys(ingredients).sort().map(aisle => {
             return (
                 <>
@@ -12,7 +13,7 @@ function IngredientList({ingredients}) {
                     <br></br>
                     <IngredientSection aisleIngredients={Array.from(ingredients[aisle]).sort()}/>
                 </>
-            );// list of ingredientSections
+            );
         })}  
         </>      
     );

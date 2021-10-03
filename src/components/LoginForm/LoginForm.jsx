@@ -4,6 +4,9 @@ import {useSelector} from 'react-redux';
 import Button from 'react-bootstrap/Button';
 
 function LoginForm() {
+  /*
+    Simple login page - tracks users name and password to be passed to backend.
+  */
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const errors = useSelector(store => store.errors);

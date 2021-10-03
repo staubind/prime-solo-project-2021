@@ -4,6 +4,9 @@ import { useHistory } from 'react-router-dom';
 import RegisterForm from '../RegisterForm/RegisterForm';
 
 function RegisterPage() {
+  /*
+    Basic page for displaying the registration form.
+  */
   const history = useHistory();
 
   return (

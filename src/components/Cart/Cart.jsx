@@ -7,8 +7,7 @@ import IngredientList from "../IngredientList/IngredientList";
 // this gathers the ingredients for the recipe display
 function makeGroceryList(recipes) {
     let totalIngredients = {};
-    // need recipe list 
-    // also need servings per recipe
+    // sorts ingredients by aisle, only lists each ingredient once
     for (let recipe of recipes) {
         for (let ingredient of recipe.extendedIngredients) {
                 if (totalIngredients[ingredient.aisle] === undefined) {
@@ -26,7 +25,6 @@ function Cart() {
     const dispatch = useDispatch();
     const cart = useSelector(state => state.cartReducer);
     // on load: get all favorites for the user
-
     useEffect(() => {
         dispatch({
             type: 'FETCH_CART',
@@ -48,7 +46,7 @@ function Cart() {
                 <Tab eventKey="profile" title="Grocery List">
                     <IngredientList ingredients={makeGroceryList(cart)}/>
                 </Tab>
-                <Tab eventKey="disabled" title="Nutrition">
+                <Tab disabled title="Nutrition">
                     <center>
                     <h1>
                         Under Development

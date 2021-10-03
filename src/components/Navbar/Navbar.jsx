@@ -11,12 +11,13 @@ import IconButton from '@mui/material/IconButton';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import FavoriteOutlinedIcon from '@mui/icons-material/FavoriteOutlined';import ShareIcon from '@mui/icons-material/Share';
 import SettingsIcon from '@mui/icons-material/Settings';
-import Col from 'react-bootstrap/Col'
-import Row from 'react-bootstrap/Row'
 import DirectionsRunIcon from '@mui/icons-material/DirectionsRun';
 import InfoIcon from '@mui/icons-material/Info';
 
 function NavigationBar() {
+    /*
+        Adds navigation on top and bottom of the screen
+    */
     const dispatch = useDispatch();
     const history = useHistory();
     const user = useSelector((store) => store.user);
@@ -25,29 +26,26 @@ function NavigationBar() {
     const [searchTerm, setSearchTerm] = useState('');
 
     const search = (event) => {
+        // prevent from default
         event.preventDefault()
         dispatch({
             type: 'SEARCH',
             payload: searchTerm
         })
-        // send the search term to the display page
-        // setSearchTerm('');
-        // redirect to the search page
         history.push('/search');
     }
 
     return (
         <>
-        {/* insert another bar that has the page title and the GG symbol? */}
         {/* top bar has search and GG */}
         <Navbar bg="light" expand="lg" sticky="top">
         <LinkContainer to="/home">
-          {/* Want this to be moved off the left side of the page just a bit */}
             <Navbar.Brand>GroceryGuru</Navbar.Brand>
           </LinkContainer>
 
             <Nav className='m-auto'>
             <Form className="d-flex" onSubmit={search}> 
+              {/* search bar that brings us to the search page on submission */}
               <FormControl
                 type="search"
                 placeholder="Search"
@@ -85,7 +83,6 @@ function NavigationBar() {
               </LinkContainer>
               </Nav.Item>
 
-              {/* need links for login/logout */}
               <Nav.Item>
               <NavDropdown title={<SettingsIcon />} id="nav-dropdown" style={{color: "grey"}}>
                 <NavDropdown.Item eventKey="4.1">

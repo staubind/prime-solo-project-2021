@@ -1,6 +1,5 @@
 import { takeLatest, put } from "@redux-saga/core/effects";
 import axios from "axios";
-// import cacheAxios from "./cacheAxios";
 
 function* fetchCart(action) {
     try {
@@ -12,7 +11,6 @@ function* fetchCart(action) {
                 cart: action.payload
             }
         })
-        // console.log('we are getting this back from the cart server: ', results.data)
         // send them to the reducer
         yield put({
             type: 'SET_CART_REDUCER',
@@ -25,9 +23,6 @@ function* fetchCart(action) {
 };
 
 function* addToCart(action) {
-    // console.log('have we even made it to the saga?')
-    // console.log('user is: ', action.payload.userId);
-    // console.log('payload is: ', action.payload.recipeId);
     try {
         yield axios({
             method: 'POST',
@@ -38,13 +33,12 @@ function* addToCart(action) {
                 servings: action.payload.servings
             }
         })
-        // do a get w/ the stuff that's in the search - we need to know their     
+        // do a get w/ the stuff that's in the search - we need to know their isCurrent status  
         const isCurrent = yield axios({
             method: 'GET',
             url: `/api/cart/${action.payload.recipeId}/isCurrent`,
         })
         // send update to reducer and update it
-        // yield console.log('isCurrent contents: ', isCurrent)
         yield put({
             type: 'UPDATE_SEARCH_REDUCER',
             payload: {
@@ -69,9 +63,6 @@ function* removeFromCart(action) {
             url: `/api/cart/`,
             data: {
                 user: action.payload.userId,
-                // for RESTful api should I be sending the user
-                //  in the body to keep all relevant info?
-                // even though we have it in the user attribute
                 recipeId: action.payload.recipeId
             }
         })
@@ -79,9 +70,7 @@ function* removeFromCart(action) {
             method: 'GET',
             url: `/api/cart/${action.payload.recipeId}/isCurrent`,
         })
-        // console.log('from remove from cart: isCurrent get request gave back the following: ', isCurrent)
         // send update to reducer and update it
-        // yield console.log('isCurrent contents: ', isCurrent)
         yield put({
             type: 'UPDATE_SEARCH_REDUCER',
             payload: {
