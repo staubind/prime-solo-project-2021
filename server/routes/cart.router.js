@@ -6,22 +6,11 @@ const addCurrentAndFavorites = require('../modules/addProps');
 const cacheAxios = require('./cacheAxios');
 const router = express.Router();
 
-
-// // ------------ cache axios stuff
-// // axios imported above
-// const setupCache = require('axios-cache-adapter').setupCache;
-
-// const cache = setupCache({
-//     maxAge: 15 * 60 * 1000
-// })
-
-// const cacheAxios = axios.create({
-//     adapter: cache.adapter
-//   })
-// // ------------ cache axios stuff - END
-
-
 router.post('/', rejectUnauthenticated, (req, res) => {
+    /*
+        Post a new recipe to the user's cart
+    */
+
     // check if the row exists in the database
     const updateSqlQuery = `UPDATE "user_recipes"
                             SET "is_current" = TRUE, "servings" = $1
@@ -29,7 +18,7 @@ router.post('/', rejectUnauthenticated, (req, res) => {
     const updateSqlParams = [req.body.servings, req.user.id, req.body.recipeId]
     pool.query(updateSqlQuery, updateSqlParams)
     .then(existResponse => {
-        // check if anything was updated, if not insert
+        // check if anything was updated
         if (existResponse.rowCount === 0) {
             // insert a new row
             const insertSqlQuery = `INSERT INTO "user_recipes"
@@ -55,7 +44,9 @@ router.post('/', rejectUnauthenticated, (req, res) => {
 });
 
 router.delete('/', rejectUnauthenticated, (req, res) => {
-    // we will do a soft delete using the "is_current" field
+    /*
+        Do a soft delete using the "is_current" field
+    */
     const sqlQuery = `UPDATE "user_recipes"
                       SET "is_current" = FALSE
                       WHERE "user_id" = $1 AND "recipe_id" = $2;`;
@@ -69,12 +60,13 @@ router.delete('/', rejectUnauthenticated, (req, res) => {
 });
 
 router.get('/:recipeId/isCurrent', rejectUnauthenticated, (req, res) => {
+    /*
+        Query db to find out if the recipe you're interested in isCurrent
+    */
     const sqlQuery = `SELECT "is_current" FROM "user_recipes"
                       WHERE "user_id" = $1 and "recipe_id" = $2`
     const sqlParams = [req.user.id, req.params.recipeId];
     pool.query(sqlQuery, sqlParams).then(dbRes => {
-
-        // console.log('values we would use to update are: ', dbRes.rows[0].is_current);
         res.send({
             recipeId: req.params.recipeId,
             isCurrent: dbRes.rows[0].is_current
@@ -86,11 +78,13 @@ router.get('/:recipeId/isCurrent', rejectUnauthenticated, (req, res) => {
 })
 
 router.get('/', rejectUnauthenticated, (req, res) => {
+    /*
+        Retrieve the user's entire cart
+    */
     const sqlQuery = `SELECT ARRAY_AGG("recipe_id") as "cart" FROM "user_recipes"
                       WHERE "user_id" = $1 AND "is_current" = TRUE`;
     const sqlParams = [req.user.id];
     pool.query(sqlQuery, sqlParams).then(async dbRes => {
-        // console.log('dbRes.rows is: ', dbRes.rows[0].cart.join(','))
         // call spoonacular api w/ appropriate info
         if (!!dbRes.rows[0].cart) {
             cacheAxios({
@@ -100,8 +94,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
                     apiKey: process.env.SPOONACULAR_API_KEY,
                     ids: dbRes.rows[0].cart.join(',')
                 }
-            }).then(async apiRes => {
-                // console.log('get all favorites from api yielded: ', apiRes.data);
+            }).then(async apiRes => { // function async because we need to process the results of the api call
                 const preparedResults = await addCurrentAndFavorites(req.user.id, apiRes.data)
                 if (preparedResults === 'addCurrentAndFavorites failed') {
                     console.log('addCurrentAndFavorites Failed.')
