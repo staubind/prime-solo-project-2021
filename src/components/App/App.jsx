@@ -14,13 +14,11 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
-import InfoPage from '../InfoPage/InfoPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import Favorites from '../Favorites/Favorites';
 import NavigationBar from '../Navbar/Navbar';
-import PrimarySearchAppBar from '../Navbar/Navbar2'
 import Cart from '../Cart/Cart';
 
 import './App.css';

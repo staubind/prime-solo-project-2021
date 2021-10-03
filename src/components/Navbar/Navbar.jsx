@@ -11,12 +11,13 @@ import IconButton from '@mui/material/IconButton';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import FavoriteOutlinedIcon from '@mui/icons-material/FavoriteOutlined';import ShareIcon from '@mui/icons-material/Share';
 import SettingsIcon from '@mui/icons-material/Settings';
-import Col from 'react-bootstrap/Col'
-import Row from 'react-bootstrap/Row'
 import DirectionsRunIcon from '@mui/icons-material/DirectionsRun';
 import InfoIcon from '@mui/icons-material/Info';
 
 function NavigationBar() {
+    /*
+        Adds navigation on top and bottom of the screen
+    */
     const dispatch = useDispatch();
     const history = useHistory();
     const user = useSelector((store) => store.user);

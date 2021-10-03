@@ -30,6 +30,7 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import PersonIcon from '@mui/icons-material/Person';
 
+// for accordion effect - adapted from mat-ui
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
   return <IconButton {...other} />;
@@ -41,6 +42,7 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
+// adapted from mat-ui
 export default function RecipeReviewCard({recipe}) {
   const [expanded, setExpanded] = React.useState(false);
   const dispatch = useDispatch();
@@ -50,12 +52,13 @@ export default function RecipeReviewCard({recipe}) {
   const [servings, setServings] = useState(1)
   const [favoriteModalShow, setFavoriteModalShow] = useState(false);
 
+  // for tracking if the card is expanded or not
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
 
+  // update cart
   const changeCart = (val) => {
-    // defaults to adding to the cart
     let type = 'ADD_TO_CART'
     if (val === 'remove') {
         type = 'REMOVE_FROM_CART'
@@ -65,10 +68,10 @@ export default function RecipeReviewCard({recipe}) {
         type: type,
         payload: {recipeId: recipe.id, userId: user.id, servings: servings}
     })
-    // could dispatch to the cart reducer and just add it there
 }
 
 const changeFavorite = () => {
+  // update favorite status of item
   dispatch({
     type: 'CHANGE_RECIPE_FAVORITE',
     payload: {recipeId: recipe.id, userId: user.id}
@@ -109,7 +112,7 @@ const changeFavorite = () => {
         </IconButton>
         
         <Typography>
-            {/* Found the following regex while trying to figureout how to strip html from text! source here:
+            {/* Found the following regex while trying to figure out how to strip html from text! source here:
             https://stackoverflow.com/questions/822452/strip-html-from-text-javascript
             I use it to grab the first sentence of the summary of each recipe.
              */}
@@ -119,7 +122,7 @@ const changeFavorite = () => {
       </CardContent>
       
       <CardActions disableSpacing>
-
+        {/* conditionally render some buttons */}
         {recipe.isCurrent ? 
         <IconButton onClick={() => {changeCart('remove')}}>
           <RemoveShoppingCartOutlinedIcon />
@@ -129,6 +132,7 @@ const changeFavorite = () => {
           <AddShoppingCartOutlinedIcon />
         </IconButton>
         }
+        {/* Confirmation Modal */}
         <ServingsModal 
             show={cartModalShow} 
             onHide={() => setCartModalShow(false)} 
@@ -136,7 +140,7 @@ const changeFavorite = () => {
             heading={recipe.title}
             setservings={setServings}
         />
-
+        {/* conditionally render some buttons */}
         {recipe.isFavorite ?
             <IconButton variant="primary" onClick={() => {setFavoriteModalShow(true)}}>
                 <FavoriteOutlinedIcon />
@@ -146,6 +150,7 @@ const changeFavorite = () => {
                 <FavoriteBorderOutlinedIcon />
             </IconButton>
         }
+        {/* Confirmation Modal */}
         <FavoritesModal 
             show={favoriteModalShow} 
             onHide={() => setFavoriteModalShow(false)} 
@@ -156,15 +161,7 @@ const changeFavorite = () => {
         <IconButton aria-label="share">
           <ShareIcon />
         </IconButton>
-
-        {/* <IconButton>
-        <AccessTimeIcon /> {recipe.readyInMinutes}
-        </IconButton>
-
-        <IconButton>
-        <PersonIcon /> {recipe.servings}
-        </IconButton> */}
-
+        {/* for handling the expansion of the card */}
         <ExpandMore
           expand={expanded}
           onClick={handleExpandClick}
@@ -176,7 +173,7 @@ const changeFavorite = () => {
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-
+          
           <Accordion>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
@@ -187,6 +184,7 @@ const changeFavorite = () => {
         </AccordionSummary>
         <AccordionDetails>
           <Typography>
+            {/* upon expansion of accordions will display the steps for instructions */}
           <ul style={{listStyleType: "none"}}>
                     {recipe.analyzedInstructions.map((majorStep, i) => {
                         return (
@@ -213,6 +211,7 @@ const changeFavorite = () => {
         </AccordionSummary>
         <AccordionDetails>
           <Typography>
+                {/* Upon expansion it displays the ingredients */}
                 <ul style={{listStyleType: "none"}}>
                     {recipe.extendedIngredients.map(ingredient => <li>{ingredient.name}</li>)}
                 </ul>
@@ -235,85 +234,3 @@ const changeFavorite = () => {
     </Card>
   );
 }
-
-
-
-
-function RecipeCard({recipe}) {
-    const dispatch = useDispatch();
-    const history = useHistory();
-    const user = useSelector(store => store.user)
-    const [cartModalShow, setCartModalShow] = useState(false)
-    const [servings, setServings] = useState(1)
-    const [favoriteModalShow, setFavoriteModalShow] = useState(false);
-
-    const changeCart = (val) => {
-        // defaults to adding to the cart
-        let type = 'ADD_TO_CART'
-        if (val === 'remove') {
-            type = 'REMOVE_FROM_CART'
-        }
-        // send the id to our saga
-        dispatch({
-            type: type,
-            payload: {recipeId: recipe.id, userId: user.id, servings: servings}
-        })
-        // could dispatch to the cart reducer and just add it there
-    }
-
-    const changeFavorite = () => {
-      dispatch({
-        type: 'CHANGE_RECIPE_FAVORITE',
-        payload: {recipeId: recipe.id, userId: user.id}
-      })
-    }
-
-    const launchDetailView = () => {
-      dispatch({
-        type: 'SET_DETAIL_REDUCER',
-        payload: recipe
-      })
-      history.push('/detail')
-    }
-
-    return (
-        <>
-            <Card style={{ width: '18rem' }}>
-              <Card.Img onClick={() => launchDetailView()} variant="top" src={recipe.image} />
-              <Card.Body>
-                <Card.Title>{recipe.title} {recipe.id}</Card.Title>
-                <Card.Text>
-                  {recipe.title}
-                </Card.Text>
-                {recipe.isCurrent ?
-                  <Button variant="primary" onClick={() => {changeCart('remove')}}>Remove from Cart</Button>
-                :
-                <Button variant="primary" onClick={() => {setCartModalShow(true)}}>Add to Cart</Button>
-                }
-                <ServingsModal 
-                  show={cartModalShow} 
-                  onHide={() => setCartModalShow(false)} 
-                  confirm={() => changeCart()}
-                  heading={recipe.title}
-                  setservings={setServings}
-                />
-                {recipe.isFavorite ?
-                  <Button variant="primary" onClick={() => {setFavoriteModalShow(true)}}>Remove from Favorites</Button>
-                :
-                <Button variant="primary" onClick={() => {changeFavorite()}}>Add to Favorites</Button>
-                }
-                <FavoritesModal 
-                  show={favoriteModalShow} 
-                  onHide={() => setFavoriteModalShow(false)} 
-                  confirm={() => changeFavorite()}
-                  heading={recipe.title}
-                />
-
-
-              </Card.Body>
-            </Card>
-        </>
-    );
-};
-
-// export default RecipeCard;
