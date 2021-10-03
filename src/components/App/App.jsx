@@ -30,6 +30,9 @@ import DetailView from '../DetailView/DetailView';
 
 
 function App() {
+  /*
+    Main application component. 
+  */
   const dispatch = useDispatch();
 
   const user = useSelector(store => store.user);
@@ -42,12 +45,7 @@ function App() {
     <Router>
       <div>
         <Switch>
-          {/* {user.id && <NavigationBar />} */}
-
-          {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
           <Redirect exact from="/" to="/login" />
-
-          {/* Visiting localhost:3000/about will show the about page. */}
           <ProtectedRoute
             exact
             path="/cart"
@@ -110,7 +108,7 @@ function App() {
           >
             {user.id ?
               // If the user is already logged in, 
-              // redirect to the /user page
+              // redirect to the /search page
                 // redirect after login
               <Redirect to="/search" />
               :
@@ -125,7 +123,7 @@ function App() {
           >
             {user.id ?
               // If the user is already logged in, 
-              // redirect them to the /user page
+              // redirect them to the /search page
                 // redirect after login
               <Redirect to="/search" />
               :
@@ -140,7 +138,7 @@ function App() {
           >
             {user.id ?
               // If the user is already logged in, 
-              // redirect them to the /user page
+              // redirect them to the /search page
                 // redirect after login
               <Redirect to="/search" /> 
               :

@@ -2,6 +2,7 @@ import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/Container';
+
 // adapted from Bootstrap-react's modal.
 function FavoritesModal(props) {
     return (
@@ -22,7 +23,7 @@ function FavoritesModal(props) {
         <Modal.Footer>
         <Button variant="outline-secondary" onClick={props.onHide}>Close</Button>
         <Button variant="primary" onClick={() => {
-            props.confirm() // react complains about it being in camelcase same for setservings above
+            props.confirm() 
             props.onHide()
         }}>Confirm
         </Button>
