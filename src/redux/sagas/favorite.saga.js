@@ -6,19 +6,13 @@ import fetchCart from './cart.saga';
 
 function* changeFavorite(action) {
     try {
-        // check if it's in the db GET
-        //      if not: POST
-                    // for new favorites
-        //      if is: PUT - change it to the opposite logical value
-        // then GET it from DB
         // send to search state reducer
         const inDatabase = yield axios({
             method: 'GET',
             url: `/api/favorite/${action.payload.userId}/${action.payload.recipeId}/exist`
         })
-        // console.log('inDatabase: ', inDatabase.data.exists);
         if (inDatabase.data.exists) {
-            // put route
+            // update it if it's in the db
             yield axios({
                 method: 'PUT',
                 url: '/api/favorite',
@@ -28,7 +22,7 @@ function* changeFavorite(action) {
                 }
             })
         } else {
-            // post route
+            // post it if it isn't in the db
             yield axios({
                 method: 'POST',
                 url: '/api/favorite',
@@ -44,20 +38,7 @@ function* changeFavorite(action) {
             method: 'GET',
             url: `/api/favorite/${action.payload.userId}/${action.payload.recipeId}`
         })
-
-
-        // I think the problem is arising because we are using the db strictly for the search and cart views
-        // but not so for the search view - the client has the canonical data there
-        // that is, the cart and favorites views have to go back to the db every time they want to be updated
-        // so after we update favorite or cart status for any item, regardless of where it is,
-        // we need to update the reducers for favorite and for cart, doing all of the api calls for those
-        // which is stupid, but whatever. 
-
-        // so after updating any updating of favorite in the database, we want to reload the cart and favorites
-
         // update search state w/ the value
-        // ----------
-        // WE MUST ALSO UPDATE THE FAVORITES AND CART
         yield put({
             type: 'UPDATE_FAVORITE',
             payload: {
@@ -65,17 +46,10 @@ function* changeFavorite(action) {
                 recipeId: action.payload.recipeId
             }
         })
-        // need to also update the favorites list
             // dispatch to fetch_all_favorites
         yield fetchAllFavorites(action)
-        // need to also update the cart list
             // dispatch to fetch_cart
         yield fetchCart(action)
-
-
-
-
-
     } catch (error) {
         console.log('Failed to set Favorites: ', error);
         alert('Failed to set Favorites. See console for details.')
@@ -84,15 +58,13 @@ function* changeFavorite(action) {
 
 function* fetchAllFavorites(action) {
     try {
-        // console.log('sending to the database will be: ', action.payload)
         const results = yield axios({
             method: 'GET',
             url: '/api/favorite/all',
             params: {
-                favorites: action.payload // this isn't working as expected - not finding it on the other side.
+                favorites: action.payload 
             }
         })
-        // console.log('results from the fetch all favorites was: ', results.data);
         // put to the reducer
         yield put({
             type: 'SET_FAVORITE_REDUCER',

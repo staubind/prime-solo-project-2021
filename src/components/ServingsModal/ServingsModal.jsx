@@ -18,9 +18,7 @@ function ServingsModal(props) {
         </Modal.Header>
         <Modal.Body>
           <h4>Number of Servings:</h4>
-
-
-          {/* I'm wary of the form */}
+          {/* Drop down menu */}
           <Form.Select aria-label="Default select example" onChange={(event) => {props.setservings(event.target.value)}}> 
               <option value="1">1</option>
               <option value="2">2</option>
@@ -33,13 +31,11 @@ function ServingsModal(props) {
               <option value="9">9</option>
               <option value="10">10</option>
           </Form.Select>
-          {/* I'm wary of the form */}
-
         </Modal.Body>
         <Modal.Footer>
         <Button variant="outline-secondary" onClick={props.onHide}>Close</Button>
         <Button variant="primary" onClick={() => {
-            props.confirm() // react complains about it being in camelcase same for setservings above
+            props.confirm() 
             props.onHide()
         }}>Confirm
         </Button>

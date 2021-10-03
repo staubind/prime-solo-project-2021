@@ -1,4 +1,7 @@
 const userReducer = (state = {}, action) => {
+    /*
+      for tracking which user we are working with
+    */
   switch (action.type) {
     case 'SET_USER':
       return action.payload;
@@ -9,6 +12,4 @@ const userReducer = (state = {}, action) => {
   }
 };
 
-// user will be on the redux state at:
-// state.user
 export default userReducer;
