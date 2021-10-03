@@ -6,8 +6,9 @@ const addCurrentAndFavorites = require('../modules/addProps')
 const cacheAxios = require('./cacheAxios');
 
 router.get('/', (req, res) => {
-    // console.log('the request term is: ', req.query.searchTerm);
-  // compose params for api call.
+    /*
+        Retrieve search results for the requested term
+    */
   cacheAxios({
     method: 'GET',
     url: 'https://api.spoonacular.com/recipes/complexSearch', 
@@ -15,16 +16,13 @@ router.get('/', (req, res) => {
         // grabs the api key from environment variables to keep our key secure
         apiKey: process.env.SPOONACULAR_API_KEY,
         query: req.query.searchTerm,
-        number: 10, // adjust later
+        number: 10, // number of results
         fillIngredients: true,
         addRecipeInformation: true,
     }
   })
-  .then(async apiResponse => {
-    // console.log('api request succeeded: ', apiResponse.data)
+  .then(async apiResponse => { // async because preprocessing data before sending it to the front end
     const preparedResults = await addCurrentAndFavorites(req.user.id, apiResponse.data.results)
-    // console.log('the prepared results for item 0 is: ', preparedResults.results[0].isCurrent);
-    // console.log('the prepared results for item 1 is: ', preparedResults.results[1].isCurrent);
     if (preparedResults === 'addCurrentAndFavorites failed') {
       console.log('addCurrentAndFavorites Failed.')
       res.sendStatus(500);
@@ -34,11 +32,6 @@ router.get('/', (req, res) => {
       console.log('Spoonacular api request failed: ', error)
       res.sendStatus(500);
   })
-});
-
-
-router.post('/', (req, res) => {
-  // POST route code here
 });
 
 module.exports = router;
