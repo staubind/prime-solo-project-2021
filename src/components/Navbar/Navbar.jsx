@@ -25,29 +25,26 @@ function NavigationBar() {
     const [searchTerm, setSearchTerm] = useState('');
 
     const search = (event) => {
+        // prevent from default
         event.preventDefault()
         dispatch({
             type: 'SEARCH',
             payload: searchTerm
         })
-        // send the search term to the display page
-        // setSearchTerm('');
-        // redirect to the search page
         history.push('/search');
     }
 
     return (
         <>
-        {/* insert another bar that has the page title and the GG symbol? */}
         {/* top bar has search and GG */}
         <Navbar bg="light" expand="lg" sticky="top">
         <LinkContainer to="/home">
-          {/* Want this to be moved off the left side of the page just a bit */}
             <Navbar.Brand>GroceryGuru</Navbar.Brand>
           </LinkContainer>
 
             <Nav className='m-auto'>
             <Form className="d-flex" onSubmit={search}> 
+              {/* search bar that brings us to the search page on submission */}
               <FormControl
                 type="search"
                 placeholder="Search"
@@ -85,7 +82,6 @@ function NavigationBar() {
               </LinkContainer>
               </Nav.Item>
 
-              {/* need links for login/logout */}
               <Nav.Item>
               <NavDropdown title={<SettingsIcon />} id="nav-dropdown" style={{color: "grey"}}>
                 <NavDropdown.Item eventKey="4.1">
